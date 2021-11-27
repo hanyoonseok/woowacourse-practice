@@ -1,3 +1,5 @@
+import Inputs from './Inputs/index.js';
+
 export default class RacingGame {
   constructor() {
     this.$carNameSubmit = document.getElementById('submit1');
@@ -5,40 +7,25 @@ export default class RacingGame {
     this.$carName = document.getElementById('carName');
     this.$tryCount = document.getElementById('tryCount');
     this.participants = [];
+    this.inputs = new Inputs();
     this.addEventListeners();
   }
 
-  isLengthInRange(str){
-    return str.length <= 5;
+  getCarNameList() {
+    return [];
   }
-  isCarNameValid(){
-      const noBlankCarNames = this.$carName.value.replace(/(\s*)/g, "")
-      const carNameList = noBlankCarNames.split(',');
-      carNameList.map(x =>{
-          if(!this.isLengthInRange(x)){
-              alert("자동차 이름을 5자 이하로 입력해주세요")
-          }
-      })
-      console.log(carNameList)
-      
+  addCarNameSubmitEvent() {
+    this.$carNameSubmit.addEventListener('click', event => {
+      event.preventDefault();
+      if (this.inputs.isCarNameValid(this.$carName.value)) {
+        this.participants = this.getCarNameList();
+      }
+    });
   }
-  getCarNameList(){
-      return [];
-  }
-  addCarNameSubmitEvent(){
-    this.$carNameSubmit.addEventListener('click', event =>{
-        event.preventDefault();
-        if(this.isCarNameValid()){
-            this.participants = this.getCarNameList();
-        }
-    })
-  }
-  addTryCountSubmitEvent(){
-
-  }
-  addEventListeners(){
-      this.addCarNameSubmitEvent();
-      this.addTryCountSubmitEvent();
+  addTryCountSubmitEvent() {}
+  addEventListeners() {
+    this.addCarNameSubmitEvent();
+    this.addTryCountSubmitEvent();
   }
 }
 
