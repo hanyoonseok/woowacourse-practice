@@ -3,29 +3,32 @@ import Inputs from './Inputs/index.js';
 export default class RacingGame {
   constructor() {
     this.$carNameSubmit = document.getElementById('submit1');
-    this.$tryCountSubmit = document.getElementById('submit2');
+    this.$tryNumSubmit = document.getElementById('submit2');
     this.$carName = document.getElementById('carName');
-    this.$tryCount = document.getElementById('tryCount');
-    this.participants = [];
+    this.$tryNum = document.getElementById('tryNum');
     this.inputs = new Inputs();
     this.addEventListeners();
   }
 
-  getCarNameList() {
-    return [];
-  }
   addCarNameSubmitEvent() {
     this.$carNameSubmit.addEventListener('click', event => {
       event.preventDefault();
       if (this.inputs.isCarNameValid(this.$carName.value)) {
-        this.participants = this.getCarNameList();
+        this.$carNameSubmit.disabled = true;
       }
     });
   }
-  addTryCountSubmitEvent() {}
+  addTryNumSubmitEvent() {
+    this.$tryNumSubmit.addEventListener('click', event => {
+      event.preventDefault();
+      if (this.inputs.isTryNumValid(this.$tryNum.value)) {
+        this.$tryNumSubmit.disabled = true;
+      }
+    });
+  }
   addEventListeners() {
     this.addCarNameSubmitEvent();
-    this.addTryCountSubmitEvent();
+    this.addTryNumSubmitEvent();
   }
 }
 
