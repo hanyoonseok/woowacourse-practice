@@ -1,6 +1,6 @@
 import Inputs from './Inputs/index.js';
 import Car from './Car/index.js';
-import {playRacing} from './utils/index.js'
+import {playRacing, printWinners} from './utils/index.js'
 
 export default class RacingGame {
   constructor() {
@@ -8,6 +8,7 @@ export default class RacingGame {
     this.$tryNumSubmit = document.getElementById('submit2');
     this.$carName = document.getElementById('carName');
     this.$tryNum = document.getElementById('tryNum');
+    this.$result = document.getElementById('result')
     this.inputs = new Inputs();
     this.winners =[];
     this.addEventListeners();
@@ -27,6 +28,7 @@ export default class RacingGame {
       if (this.inputs.isTryNumValid(this.$tryNum.value)) {
         this.$tryNumSubmit.disabled = true;
         this.winners = playRacing(this.$tryNum.value, this.inputs.carNameList);
+        printWinners(this.winners, this.$result);
       }else{
         alert("1이상의 자연수를 넣어주세요")
       }

@@ -54,8 +54,25 @@ export const playRacing = (tryNum, carNameList) => {
   let i;
   for (i = 0; i < tryNum; i += 1) {
     moveCars(Cars);
+    //printCars(Cars);
   }
   const winners = findWinner(Cars);
 
   return winners;
+};
+
+const makeWinnersMessage = winners => {
+  let winnerArray = [];
+  winners.forEach(x => {
+    winnerArray.push(x.name);
+  });
+  
+  const winnerMessage = winnerArray.join(', ');
+  
+  return winnerMessage;
+};
+
+export const printWinners = (winners, result) => {
+  const winnersMessage = makeWinnersMessage(winners);
+  result.innerHTML = `<strong>최종 우승자: ${winnersMessage} </strong>`;
 };
