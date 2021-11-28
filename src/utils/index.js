@@ -7,7 +7,7 @@ const makeCarObjects = carNameList => {
     const car = new Car(x);
     CarList.push(car);
   });
-  
+
   return CarList;
 };
 
@@ -28,9 +28,27 @@ const moveCars = Cars => {
   });
 };
 
-const findWinner = Cars =>{
+const sortCarsToMove = Cars => {
+  Cars.sort((a, b) => {
+    return b.move - a.move;
+  });
 
-}
+  return Cars;
+};
+
+const findWinner = Cars => {
+  const sortedCars = sortCarsToMove(Cars);
+  const winnerCarMove = sortedCars[0].move;
+  let winners = [];
+  let i;
+  for (i = 0; i < Cars.length; i += 1) {
+    if (Cars[i].move === winnerCarMove) {
+      winners.push(Cars[i]);
+    }
+  }
+
+  return winners;
+};
 export const playRacing = (tryNum, carNameList) => {
   const Cars = makeCarObjects(carNameList);
   let i;
