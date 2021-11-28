@@ -21,11 +21,25 @@ const makeRandomNumber = () => {
 };
 
 const moveCars = Cars => {
-  Cars.map(x => {
+  Cars.forEach(x => {
     if (makeRandomNumber() >= 4) {
       x.move++;
     }
   });
+};
+
+const makeResultInnerHTML = status =>{
+    const divTag = document.createElement('div');
+    divTag.innerHTML = status;
+
+    return divTag;
+}
+
+const printCars = (Cars, result) => {
+  Cars.forEach(x => {
+    result.appendChild(makeResultInnerHTML(x.printStatus()))
+  });
+  result.appendChild(document.createElement('br'));
 };
 
 const sortCarsToMove = Cars => {
@@ -49,12 +63,12 @@ const findWinner = Cars => {
 
   return winners;
 };
-export const playRacing = (tryNum, carNameList) => {
+export const playRacing = (tryNum, carNameList, result) => {
   const Cars = makeCarObjects(carNameList);
   let i;
   for (i = 0; i < tryNum; i += 1) {
     moveCars(Cars);
-    //printCars(Cars);
+    printCars(Cars, result);
   }
   const winners = findWinner(Cars);
 
@@ -66,13 +80,19 @@ const makeWinnersMessage = winners => {
   winners.forEach(x => {
     winnerArray.push(x.name);
   });
-  
+
   const winnerMessage = winnerArray.join(', ');
-  
+
   return winnerMessage;
 };
 
+const makeWinnerHTML = winnerMessage =>{
+    const strongTag = document.createElement('strong');
+    strongTag.innerHTML = `최종 우승자: ${winnerMessage}`;
+
+    return strongTag
+}
 export const printWinners = (winners, result) => {
   const winnersMessage = makeWinnersMessage(winners);
-  result.innerHTML = `<strong>최종 우승자: ${winnersMessage} </strong>`;
+  result.appendChild(makeWinnerHTML(winnersMessage));
 };

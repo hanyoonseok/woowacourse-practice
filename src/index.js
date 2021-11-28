@@ -27,7 +27,7 @@ export default class RacingGame {
       event.preventDefault();
       if (this.inputs.isTryNumValid(this.$tryNum.value)) {
         this.$tryNumSubmit.disabled = true;
-        this.winners = playRacing(this.$tryNum.value, this.inputs.carNameList);
+        this.winners = playRacing(this.$tryNum.value, this.inputs.carNameList, this.$result);
         printWinners(this.winners, this.$result);
       }else{
         alert("1이상의 자연수를 넣어주세요")
