@@ -1,5 +1,4 @@
 import Inputs from './Inputs/index.js';
-import Car from './Car/index.js';
 import {playRacing, printWinners} from './utils/index.js'
 
 export default class RacingGame {
