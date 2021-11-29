@@ -1,7 +1,10 @@
 import { playRacing } from './playRacing.js';
 import { printWinners } from './printWinners.js';
 
-export const addCarNameSubmitEvent = ($carName, $carNameSubmit, inputs) => {
+export const addCarNameSubmitEvent = inputs => {
+  const $carNameSubmit = document.getElementById('car-names-submit');
+  const $carName = document.getElementById('car-names-input');
+
   $carNameSubmit.addEventListener('click', event => {
     event.preventDefault();
     if (inputs.isCarNameValid($carName.value)) {
@@ -9,7 +12,12 @@ export const addCarNameSubmitEvent = ($carName, $carNameSubmit, inputs) => {
     }
   });
 };
-export const addTryNumSubmitEvent = ($tryNumSubmit, inputs, $tryNum, $result) => {
+
+export const addTryNumSubmitEvent = inputs => {
+  const $tryNumSubmit = document.getElementById('racing-count-submit');
+  const $tryNum = document.getElementById('racing-count-input');
+  const $result = document.getElementById('result');
+
   $tryNumSubmit.addEventListener('click', event => {
     event.preventDefault();
     if (inputs.isTryNumValid($tryNum.value)) {

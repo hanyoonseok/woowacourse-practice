@@ -2,11 +2,7 @@ import Car from '../Car/index.js';
 import { myCreateElement } from './common.js';
 
 const makeCarObjects = carNameList => {
-  let CarList = [];
-  carNameList.map(x => {
-    const car = new Car(x);
-    CarList.push(car);
-  });
+  const CarList = carNameList.map(x => new Car(x));
 
   return CarList;
 };
@@ -24,7 +20,7 @@ const printCars = (Cars, result) => {
   result.appendChild(myCreateElement('br', ''));
 };
 
-const sortCarsToMove = Cars => {
+const sortCarsByMove = Cars => {
   Cars.sort((a, b) => {
     return b.move - a.move;
   });
@@ -32,12 +28,10 @@ const sortCarsToMove = Cars => {
   return Cars;
 };
 
-const findWinner = Cars => {
-  const sortedCars = sortCarsToMove(Cars);
+const findWinners = Cars => {
+  const sortedCars = sortCarsByMove(Cars);
   const winnerCarMove = sortedCars[0].move;
-  let winners = sortedCars.filter(x => {
-    return winnerCarMove === x.move;
-  });
+  const winners = sortedCars.filter(x => winnerCarMove === x.move);
 
   return winners;
 };
@@ -45,11 +39,11 @@ const findWinner = Cars => {
 export const playRacing = (tryNum, carNameList, result) => {
   const Cars = makeCarObjects(carNameList);
   let i;
-  for (i = 0; i < tryNum; i += 1) {
+  for (i = 0; i < tryNum; i++) {
     moveCars(Cars);
     printCars(Cars, result);
   }
-  const winners = findWinner(Cars);
+  const winners = findWinners(Cars);
 
   return winners;
 };

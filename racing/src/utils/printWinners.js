@@ -8,7 +8,7 @@ const makeWinnersMessage = winners => {
 };
 
 const makeWinnerHTML = winnerMessage => {
-  const spanTag = myCreateElement('span', `최종 우승자: ${winnerMessage}`);
+  const spanTag = myCreateElement('span', `${winnerMessage}`);
   spanTag.id = 'racing-winners';
 
   return spanTag;
@@ -16,5 +16,7 @@ const makeWinnerHTML = winnerMessage => {
 
 export const printWinners = (winners, result) => {
   const winnersMessage = makeWinnersMessage(winners);
+  const finalWinnerText = myCreateElement('span', '최종우승자: ');
+  result.appendChild(finalWinnerText);
   result.appendChild(makeWinnerHTML(winnersMessage));
 };
