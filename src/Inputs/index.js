@@ -5,11 +5,12 @@ export default class Inputs {
   }
   isLengthInRange(carNameList) {
     let isValid = true;
-    carNameList.map(x => {
+    carNameList.forEach(x => {
       if (x.length > 5) {
         isValid = false;
       }
     });
+
     return isValid;
   }
   isCarNameValid(carNameValue) {
@@ -22,6 +23,7 @@ export default class Inputs {
       alert('자동차 이름을 5자 이하로 입력해주세요');
       isValid = false;
     }
+
     return isValid;
   }
   isNumeric(tryNumValue) {
@@ -32,6 +34,7 @@ export default class Inputs {
         isValid = false;
       }
     }
+
     return isValid;
   }
   isTryNumValid(tryNumValue) {
@@ -39,6 +42,7 @@ export default class Inputs {
     if (!this.isNumeric(tryNumValue)) {
       isValid = false;
     }
+
     return isValid;
   }
 }

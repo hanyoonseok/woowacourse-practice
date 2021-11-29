@@ -1,5 +1,5 @@
 import Inputs from './Inputs/index.js';
-import {playRacing, printWinners} from './utils/index.js'
+import { addCarNameSubmitEvent, addTryNumSubmitEvent } from './utils/submitEvents.js';
 
 export default class RacingGame {
   constructor() {
@@ -7,35 +7,14 @@ export default class RacingGame {
     this.$tryNumSubmit = document.getElementById('submit2');
     this.$carName = document.getElementById('carName');
     this.$tryNum = document.getElementById('tryNum');
-    this.$result = document.getElementById('result')
+    this.$result = document.getElementById('result');
     this.inputs = new Inputs();
-    this.winners =[];
     this.addEventListeners();
   }
 
-  addCarNameSubmitEvent() {
-    this.$carNameSubmit.addEventListener('click', event => {
-      event.preventDefault();
-      if (this.inputs.isCarNameValid(this.$carName.value)) {
-        this.$carNameSubmit.disabled = true;
-      }
-    });
-  }
-  addTryNumSubmitEvent() {
-    this.$tryNumSubmit.addEventListener('click', event => {
-      event.preventDefault();
-      if (this.inputs.isTryNumValid(this.$tryNum.value)) {
-        this.$tryNumSubmit.disabled = true;
-        this.winners = playRacing(this.$tryNum.value, this.inputs.carNameList, this.$result);
-        printWinners(this.winners, this.$result);
-      }else{
-        alert("1이상의 자연수를 넣어주세요")
-      }
-    });
-  }
   addEventListeners() {
-    this.addCarNameSubmitEvent();
-    this.addTryNumSubmitEvent();
+    addCarNameSubmitEvent(this.$carName, this.$carNameSubmit, this.inputs);
+    addTryNumSubmitEvent(this.$tryNumSubmit, this.inputs, this.$tryNum, this.$result);
   }
 }
 
