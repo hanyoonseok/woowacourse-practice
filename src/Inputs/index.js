@@ -14,9 +14,9 @@ export default class Inputs {
     return isValid;
   }
   isCarNameValid(carNameValue) {
-    let isValid = true;
     const noBlankCarNames = carNameValue.replace(/(\s*)/g, '');
     const carNameList = noBlankCarNames.split(',');
+    let isValid = true;
     if (this.isLengthInRange(carNameList)) {
       this.carNameList = carNameList;
     } else {

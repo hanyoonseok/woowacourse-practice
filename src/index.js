@@ -3,10 +3,10 @@ import { addCarNameSubmitEvent, addTryNumSubmitEvent } from './utils/submitEvent
 
 export default class RacingGame {
   constructor() {
-    this.$carNameSubmit = document.getElementById('submit1');
-    this.$tryNumSubmit = document.getElementById('submit2');
-    this.$carName = document.getElementById('carName');
-    this.$tryNum = document.getElementById('tryNum');
+    this.$carNameSubmit = document.getElementById('car-names-submit');
+    this.$tryNumSubmit = document.getElementById('racing-count-submit');
+    this.$carName = document.getElementById('car-names-input');
+    this.$tryNum = document.getElementById('racing-count-input');
     this.$result = document.getElementById('result');
     this.inputs = new Inputs();
     this.addEventListeners();

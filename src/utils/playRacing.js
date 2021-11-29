@@ -1,4 +1,5 @@
 import Car from '../Car/index.js';
+import { myCreateElement } from './common.js';
 
 const makeCarObjects = carNameList => {
   let CarList = [];
@@ -16,18 +17,11 @@ const moveCars = Cars => {
   });
 };
 
-const myCreateElement = (tag, text) => {
-  const htmlTag = document.createElement(tag);
-  htmlTag.innerHTML = text;
-
-  return htmlTag;
-};
-
 const printCars = (Cars, result) => {
   Cars.forEach(x => {
     result.appendChild(myCreateElement('div', x.printStatus()));
   });
-  result.appendChild(myCreateElement('br'));
+  result.appendChild(myCreateElement('br', ''));
 };
 
 const sortCarsToMove = Cars => {
@@ -47,6 +41,7 @@ const findWinner = Cars => {
 
   return winners;
 };
+
 export const playRacing = (tryNum, carNameList, result) => {
   const Cars = makeCarObjects(carNameList);
   let i;

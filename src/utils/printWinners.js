@@ -1,18 +1,17 @@
+import { myCreateElement } from './common.js';
+
 const makeWinnersMessage = winners => {
-  let winnerArray = [];
-  winners.forEach(x => {
-    winnerArray.push(x.name);
-  });
+  const winnerArray = winners.map(x => x.name);
   const winnerMessage = winnerArray.join(', ');
 
   return winnerMessage;
 };
 
 const makeWinnerHTML = winnerMessage => {
-  const strongTag = document.createElement('strong');
-  strongTag.innerHTML = `최종 우승자: ${winnerMessage}`;
+  const spanTag = myCreateElement('span', `최종 우승자: ${winnerMessage}`);
+  spanTag.id = 'racing-winners';
 
-  return strongTag;
+  return spanTag;
 };
 
 export const printWinners = (winners, result) => {
