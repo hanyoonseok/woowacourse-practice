@@ -9,10 +9,10 @@ export default class BaseballGame {
     this.addEventListeners();
     this.computer = new Computer();
     this.user = new User();
-    this.computer.setRandomNumber();
   }
   play(computerInputNumbers, userInputNumbers) {
     const resultMessage = makeResultMessage(computerInputNumbers, userInputNumbers, this.user);
+
     return resultMessage;
   }
 
@@ -27,6 +27,7 @@ export default class BaseballGame {
       this.$userInput.value = '';
     }
   }
+  
   addEventListeners() {
     this.$submit.addEventListener('click', event => this.onSubmitClick(event));
   }

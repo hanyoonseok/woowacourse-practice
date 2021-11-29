@@ -3,6 +3,7 @@ import { GAME_RULE } from '../constants/index.js';
 export default class Computer {
   constructor() {
     this.number = 0;
+    this.setRandomNumber();
   }
   setRandomNumber() {
     let randomNumberString = '';
@@ -17,7 +18,7 @@ export default class Computer {
     }
     this.number = randomNumberString;
   }
-  getNumber(){
-      return this.number;
+  getNumber() {
+    return this.number;
   }
 }
