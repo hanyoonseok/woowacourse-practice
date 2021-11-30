@@ -16,23 +16,24 @@ const setResultDiv = (resultMessage, $result) => {
   $result.innerHTML = resultMessage;
 };
 
-const initResultDiv = computer => {
+const initGame = (computer, user) => {
   const resultDiv = document.getElementById('result');
   resultDiv.innerHTML = '';
   computer.setRandomNumber();
+  user.$userInput.value = '';
+  document.getElementById('submit').disabled = false;
 };
 
 const onRestartClick = (event, user, computer) => {
   event.preventDefault();
   user.initUser();
-  initResultDiv(computer);
-  document.getElementById('user-input').value = '';
-  document.getElementById('submit').disabled = false;
+  initGame(computer, user);
 };
 
 const setRestartDiv = ($result, user, computer) => {
   const divTag = myCreateElement('div', '');
   const restartButton = myCreateElement('button', '게임 재시작');
+
   divTag.innerHTML = '게임을 재시작하시겠습니까?';
   restartButton.id = 'game-restart-button';
   restartButton.addEventListener('click', event => onRestartClick(event, user, computer));

@@ -20,8 +20,8 @@ export default class BaseballGame {
     event.preventDefault();
     if (this.user.isUserInputValid()) {
       this.user.initUser();
-      this.user.number = this.$userInput.value;
-      const resultMessage = this.play(this.computer.number, this.user.number);
+      this.user.setNumber(this.$userInput.value);
+      const resultMessage = this.play(this.computer.getNumber(), this.user.getNumber());
       gameResult(resultMessage, this.user, this.computer);
     } else {
       this.$userInput.value = '';

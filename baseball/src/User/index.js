@@ -1,4 +1,4 @@
-import { GAME_RULE, MESSAGES } from '../constants/index.js';
+import { GAME_RULE, MESSAGES, ALERT_MESSAGE } from '../constants/index.js';
 
 export default class User {
   constructor() {
@@ -6,6 +6,12 @@ export default class User {
     this.strikeNum = 0;
     this.ballNum = 0;
     this.$userInput = document.getElementById('user-input');
+  }
+  getNumber() {
+    return this.number;
+  }
+  setNumber(number) {
+    this.number = number;
   }
   initUser() {
     this.number = 0;
@@ -41,13 +47,13 @@ export default class User {
     const userInput = this.$userInput.value;
     let isValid = false;
     if (!this.isNumeric(userInput)) {
-      alert('숫자가 아닌 문자가 포함되어 있습니다');
+      alert(ALERT_MESSAGE.isNumeric);
     } else if (!this.isInLength(userInput)) {
-      alert('3자리 수를 입력해주세요');
+      alert(ALERT_MESSAGE.isInRange);
     } else if (this.isOutOfRange(userInput)) {
-      alert('1부터 9사이의 수를 입력해주세요');
+      alert(ALERT_MESSAGE.isOutOfRange);
     } else if (this.isDuplicated(userInput)) {
-      alert('중복된 수가 존재합니다. 다시 입력해주세요');
+      alert(ALERT_MESSAGE.isDuplicated);
     } else {
       isValid = true;
     }
