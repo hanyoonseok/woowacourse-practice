@@ -1,9 +1,10 @@
 import { playRacing } from './playRacing.js';
 import { printWinners } from './printWinners.js';
+import { $ } from './common.js';
 
 export const addCarNameSubmitEvent = inputs => {
-  const $carNameSubmit = document.getElementById('car-names-submit');
-  const $carName = document.getElementById('car-names-input');
+  const $carNameSubmit = $('car-names-submit');
+  const $carName = $('car-names-input');
 
   $carNameSubmit.addEventListener('click', event => {
     event.preventDefault();
@@ -14,9 +15,9 @@ export const addCarNameSubmitEvent = inputs => {
 };
 
 export const addTryNumSubmitEvent = inputs => {
-  const $tryNumSubmit = document.getElementById('racing-count-submit');
-  const $tryNum = document.getElementById('racing-count-input');
-  const $result = document.getElementById('result');
+  const $tryNumSubmit = $('racing-count-submit');
+  const $tryNum = $('racing-count-input');
+  const $result = $('result');
 
   $tryNumSubmit.addEventListener('click', event => {
     event.preventDefault();

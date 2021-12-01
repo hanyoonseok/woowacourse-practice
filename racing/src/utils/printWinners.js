@@ -1,4 +1,4 @@
-import { myCreateElement } from './common.js';
+import { createElementWithText } from './common.js';
 
 const makeWinnersMessage = winners => {
   const winnerArray = winners.map(x => x.name);
@@ -8,7 +8,7 @@ const makeWinnersMessage = winners => {
 };
 
 const makeWinnerHTML = winnerMessage => {
-  const spanTag = myCreateElement('span', `${winnerMessage}`);
+  const spanTag = createElementWithText('span', `${winnerMessage}`);
   spanTag.id = 'racing-winners';
 
   return spanTag;
@@ -16,7 +16,7 @@ const makeWinnerHTML = winnerMessage => {
 
 export const printWinners = (winners, result) => {
   const winnersMessage = makeWinnersMessage(winners);
-  const finalWinnerText = myCreateElement('span', '최종우승자: ');
+  const finalWinnerText = createElementWithText('span', '최종우승자: ');
   result.appendChild(finalWinnerText);
   result.appendChild(makeWinnerHTML(winnersMessage));
 };

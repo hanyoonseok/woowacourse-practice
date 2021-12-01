@@ -1,23 +1,23 @@
-import Car from '../Car/index.js';
-import { myCreateElement } from './common.js';
+import Car from '../car/index.js';
+import { createElementWithText } from './common.js';
 
-const makeCarObjects = carNameList => {
-  const CarList = carNameList.map(x => new Car(x));
+const makeCarObjectList = carNameList => {
+  const carObjectList = carNameList.map(x => new Car(x));
 
-  return CarList;
+  return carObjectList;
 };
 
-const moveCars = Cars => {
-  Cars.forEach(x => {
+const moveCars = carObjectList => {
+  carObjectList.forEach(x => {
     x.moveCar();
   });
 };
 
-const printCars = (Cars, result) => {
-  Cars.forEach(x => {
-    result.appendChild(myCreateElement('div', x.printStatus()));
+const printCars = (carObjectList, result) => {
+  carObjectList.forEach(x => {
+    result.appendChild(createElementWithText('div', x.printStatus()));
   });
-  result.appendChild(myCreateElement('br', ''));
+  result.appendChild(createElementWithText('br', ''));
 };
 
 const sortCarsByMove = Cars => {
@@ -28,22 +28,21 @@ const sortCarsByMove = Cars => {
   return Cars;
 };
 
-const findWinners = Cars => {
-  const sortedCars = sortCarsByMove(Cars);
-  const winnerCarMove = sortedCars[0].move;
-  const winners = sortedCars.filter(x => winnerCarMove === x.move);
+const findWinners = carObjectList => {
+  const sortedCarList = sortCarsByMove(carObjectList);
+  const winnerCarMove = sortedCarList[0].move;
+  const winners = sortedCarList.filter(x => winnerCarMove === x.move);
 
   return winners;
 };
 
 export const playRacing = (tryNum, carNameList, result) => {
-  const Cars = makeCarObjects(carNameList);
+  const carObjectList = makeCarObjectList(carNameList);
   let i;
   for (i = 0; i < tryNum; i++) {
-    moveCars(Cars);
-    printCars(Cars, result);
+    moveCars(carObjectList);
+    printCars(carObjectList, result);
   }
-  const winners = findWinners(Cars);
-
-  return winners;
+  
+  return findWinners(carObjectList);
 };

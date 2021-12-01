@@ -1,4 +1,4 @@
-import Inputs from './Inputs/index.js';
+import Inputs from './input/index.js';
 import { addCarNameSubmitEvent, addTryNumSubmitEvent } from './utils/submitEvents.js';
 
 export default class RacingGame {
