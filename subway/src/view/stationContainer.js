@@ -1,5 +1,5 @@
 import { makeElement, clearContents, appendChilds } from '../controller/utils.js';
-import { makeTable, addStation } from '../controller/stationManager.js';
+import { makeTable, addStation, tableRenewal,setAllDeleteButonEvent } from '../controller/stationManager.js';
 
 export default function stationContainer(container) {
   const title = makeElement({ tag: 'p', innerHTML: '역이름' });
@@ -9,16 +9,18 @@ export default function stationContainer(container) {
     placeholder: '역 이름을 입력해주세요',
   });
   const stationNameSubmit = makeElement({ tag: 'button', innerHTML: '역 추가' });
+
+  const tableTitle = makeElement({ tag: 'p', innerHTML: '지하철 역 목록' });
+  const table = makeTable();
+  
   stationNameSubmit.addEventListener('click', () => {
     const stationName = stationNameInput.value;
     addStation(stationName);
-  })
-  const tableTitle = makeElement({ tag: 'p', innerHTML: '지하철 역 목록' });
-  const table = makeTable();
+    tableRenewal(table);
+  });
   this.initializer = () => {
     clearContents(container);
-    const contents = makeElement({ id: 'contents' });
-    appendChilds(contents, [title, stationNameInput, stationNameSubmit, tableTitle, table]);
-    container.appendChild(contents);
+    appendChilds(container, [title, stationNameInput, stationNameSubmit, tableTitle, table]);
+    setAllDeleteButonEvent();
   };
 }

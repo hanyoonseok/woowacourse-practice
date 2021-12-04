@@ -1,9 +1,10 @@
-export const makeElement = ({ tag = 'div', innerHTML, id, type, placeholder }) => {
+export const makeElement = ({ tag = 'div', innerHTML, id, type, placeholder, className }) => {
   const htmlTag = document.createElement(tag);
   if (innerHTML) htmlTag.innerHTML = innerHTML;
   if (id) htmlTag.id = id;
   if (type) htmlTag.type = type;
   if (placeholder) htmlTag.placeholder = placeholder;
+  if (className) htmlTag.classList = className;
 
   return htmlTag;
 };
@@ -15,5 +16,5 @@ export const appendChilds = (parent, childs) => {
 };
 
 export const clearContents = container => {
-  container.textContent ='';
-}
+  container.textContent = '';
+};
