@@ -1,15 +1,14 @@
-import Inputs from './input/index.js';
-import { addCarNameSubmitEvent, addTryNumSubmitEvent } from './utils/submitEvents.js';
+import { $ } from './controller/utils.js';
 
-export default class RacingGame {
+const carNamesSubmit = $('car-names-submit');
+const racingCountSubmit = $('racing-count-submit');
+
+class RacingGame {
   constructor() {
-    this.inputs = new Inputs();
-    this.addEventListeners();
+    this.initButtons();
   }
 
-  addEventListeners() {
-    addCarNameSubmitEvent(this.inputs);
-    addTryNumSubmitEvent(this.inputs);
+  initButtons() {
   }
 }
 
