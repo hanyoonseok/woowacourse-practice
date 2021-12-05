@@ -44,6 +44,7 @@ class Subway {
     mapPrintManagerButton.addEventListener('click', () =>
       new viewContainers.mapPrintContainer(container).initializer(),
     );
+    new viewContainers.stationContainer(container).initializer()
   }
 
   initContainers() {

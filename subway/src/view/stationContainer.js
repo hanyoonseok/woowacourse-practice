@@ -1,5 +1,6 @@
 import { makeElement, clearContents, appendChilds } from '../controller/utils.js';
-import { makeTable, addStation, tableRenewal,setAllDeleteButonEvent } from '../controller/stationManager.js';
+import { addStation, setAllDeleteButonEvent, tableRenewal } from '../controller/stationManager.js';
+import { makeTable } from '../controller/template.js';
 
 export default function stationContainer(container) {
   const title = makeElement({ tag: 'p', innerHTML: '역이름' });
@@ -11,8 +12,8 @@ export default function stationContainer(container) {
   const stationNameSubmit = makeElement({ tag: 'button', innerHTML: '역 추가' });
 
   const tableTitle = makeElement({ tag: 'p', innerHTML: '지하철 역 목록' });
-  const table = makeTable();
-  
+  const table = makeTable('stations');
+
   stationNameSubmit.addEventListener('click', () => {
     const stationName = stationNameInput.value;
     addStation(stationName);

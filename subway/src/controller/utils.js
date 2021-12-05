@@ -18,3 +18,7 @@ export const appendChilds = (parent, childs) => {
 export const clearContents = container => {
   container.textContent = '';
 };
+
+export const getAllData = name => {
+  return JSON.parse(localStorage.getItem(name));
+};
