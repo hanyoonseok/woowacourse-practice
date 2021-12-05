@@ -18,6 +18,7 @@ export default function stationContainer(container) {
     const stationName = stationNameInput.value;
     addStation(stationName);
     tableRenewal(table);
+    stationNameInput.value='';
   });
   this.initializer = () => {
     clearContents(container);

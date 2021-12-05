@@ -1,6 +1,11 @@
 import { makeElement, clearContents, appendChilds } from '../controller/utils.js';
 import { makeSelect } from '../controller/template.js';
-import { makeTable, tableRenewal, addLine, setAllDeleteButonEvent } from '../controller/lineManager.js';
+import {
+  makeTable,
+  tableRenewal,
+  addLine,
+  setAllDeleteButonEvent,
+} from '../controller/lineManager.js';
 
 export default function lineContainer(container) {
   const title = makeElement({ tag: 'p', innerHTML: '노선 이름' });
@@ -26,6 +31,7 @@ export default function lineContainer(container) {
   lineAddButton.addEventListener('click', () => {
     addLine(stationNameInput.value, ascendingSelect.value, descendingSelect.value);
     tableRenewal(table, headers);
+    stationNameInput.value = '';
   });
 
   this.initializer = () => {
