@@ -31,7 +31,7 @@ const deleteStation = button => {
 };
 
 export const setAllDeleteButonEvent = () => {
-  const allButtons = document.querySelectorAll('.delete-button');
+  const allButtons = document.querySelectorAll('.station-delete-button');
   allButtons.forEach(button => {
     button.addEventListener('click', () => deleteStation(button));
   });

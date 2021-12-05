@@ -12,7 +12,7 @@ export default function stationContainer(container) {
   const stationNameSubmit = makeElement({ tag: 'button', innerHTML: '역 추가' });
 
   const tableTitle = makeElement({ tag: 'p', innerHTML: '지하철 역 목록' });
-  const table = makeTable('stations');
+  const table = makeTable('stations', ['역 이름','설정']);
 
   stationNameSubmit.addEventListener('click', () => {
     const stationName = stationNameInput.value;
