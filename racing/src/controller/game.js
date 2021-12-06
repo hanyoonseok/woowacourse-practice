@@ -20,9 +20,9 @@ const addEventListeners = user => {
 };
 
 const initDom = () => {
+  const resultDiv = createElement({ tag: 'div', id: 'result' });
   DOM.$racingCountInput.disabled = true;
   DOM.$racingCountSubmit.disabled = true;
-  const resultDiv = createElement({ tag: 'div', id: 'result' });
   DOM.$app.appendChild(resultDiv);
 };
 
@@ -44,8 +44,9 @@ const searchWinner = carObjectArray => {
 
 const resultGame = carObjectArray => {
   const winnerObjectArray = searchWinner(carObjectArray);
-  const winnerArray = winnerObjectArray.map(winner => winner.name)
-  printWinner(winnerArray)
+  const winnerArray = winnerObjectArray.map(winner => winner.name);
+
+  printWinner(winnerArray);
 };
 
 export const playGame = user => {
@@ -57,5 +58,6 @@ export const playGame = user => {
     carObjectArray.forEach(car => printStatus(car));
     resultDiv.appendChild(createElement({ tag: 'br' }));
   }
+  
   resultGame(carObjectArray);
 };

@@ -19,9 +19,7 @@ const isInLength = carName => {
   return isValid;
 };
 
-const isCarNameValid = carName => {
-  return !isEmptyOrBlank(carName) && isInLength(carName);
-};
+const isCarNameValid = carName => !isEmptyOrBlank(carName) && isInLength(carName);
 
 const isCarNamesArrayValid = carNamesArray => {
   let isValid = true;
@@ -65,11 +63,8 @@ const isPositive = racingCountValue => {
   return isPos;
 };
 
-const isRacingCountValueValid = racingCountValue => {
-  const isValid = isNumber(racingCountValue) && isPositive(racingCountValue);
-
-  return isValid;
-};
+const isRacingCountValueValid = racingCountValue =>
+  isNumber(racingCountValue) && isPositive(racingCountValue);
 
 export const checkRacingCountInput = user => {
   const racingCountValue = DOM.$racingCountInput.value;
@@ -79,7 +74,8 @@ export const checkRacingCountInput = user => {
     return;
   }
   user.racingCount = racingCountValue;
-  playGame(user);
   DOM.$racingCountInput.disabled = true;
   DOM.$racingCountSubmit.disabled = true;
+
+  playGame(user);
 };
