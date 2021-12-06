@@ -1,15 +1,4 @@
-import { $ } from './controller/utils.js';
+import {initGame} from './controller/game.js'
+import User from './model/user.js'
 
-const carNamesSubmit = $('car-names-submit');
-const racingCountSubmit = $('racing-count-submit');
-
-class RacingGame {
-  constructor() {
-    this.initButtons();
-  }
-
-  initButtons() {
-  }
-}
-
-new RacingGame();
+initGame(new User());
