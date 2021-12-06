@@ -1,8 +1,6 @@
 import { tableTemplate, makeTableHeader } from './template.js';
-import { getAllData, createElement } from './utils.js';
+import { getAllData, createElement, appendChilds } from './utils.js';
 import { MENU } from '../model/constants.js';
-import { appendChilds } from './utils.js';
-import { makeTableRow } from '../../../subway/src/controller/template.js';
 
 const makeTableRows = type => {
   const allStation = getAllData('stations');
@@ -11,16 +9,12 @@ const makeTableRows = type => {
     allStation.forEach(station => {
       const trTag = createElement({ tag: 'tr' });
       const stationName = createElement({ tag: 'td', innerHTML: station });
-      const deleteTd = createElement({
-        tag: 'td',
-      });
       const deleteButton = createElement({
         tag: 'button',
         className: MENU(type).DeleteButton,
         innerHTML: '삭제',
       });
       deleteButton.dataset.station = station;
-      deleteTd.appendChild(deleteButton);
       appendChilds(trTag, [stationName, deleteButton]);
       tableRows.push(trTag);
     });
@@ -60,7 +54,6 @@ const deleteButton = button => {
   const table = button.parentNode.parentElement;
   setAllStation(deletedAllStation);
   tableRefresh(table);
-  
 };
 
 export const setAllDeleteButtonEvent = () => {

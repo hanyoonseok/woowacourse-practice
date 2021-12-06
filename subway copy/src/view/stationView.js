@@ -2,13 +2,14 @@ import { $, appendChilds, createElement } from '../controller/utils.js';
 import { makeTable, addStation, setAllDeleteButtonEvent } from '../controller/stationController.js';
 import { MENU } from '../model/constants.js';
 
-const makePassiveContents = () => {
+const makeContents = () => {
   const title = createElement({ tag: 'p', innerHTML: '역 이름' });
   const type = 'station';
   const stationNameInput = createElement({
     tag: 'input',
-    type: 'text',
     id: MENU(type).NameInput,
+    type:'text',
+    placeholder:'역 이름을 입력해주세요.'
   });
   const stationAddButton = createElement({
     tag: 'button',
@@ -24,7 +25,7 @@ const makePassiveContents = () => {
 
 export const stationView = () => {
   const contents = $('contents');
-  const passiveContents = makePassiveContents();
-  appendChilds(contents, passiveContents);
+  const stationContents = makeContents();
+  appendChilds(contents, stationContents);
   setAllDeleteButtonEvent();
 };
