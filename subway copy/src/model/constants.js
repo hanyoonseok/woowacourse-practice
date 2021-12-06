@@ -1,37 +1,35 @@
-export const SELECTOR = {
-  stationNameInput: 'station-name-input',
-  stationAddButton: 'station-add-button',
-  stationDeleteButton: 'station-delete-button',
-
-  lineNameInput: 'line-name-input',
-  lineStartSelect: 'line-start-station-selector',
-  lineEndSelect: 'line-end-station-selector',
-  lineAddButton: 'line-add-button',
-  lineDeleteButton: 'line-delete-button',
-
-  sectionLineMenuButton: 'section-line-menu-button',
-  sectionStationSelect: 'section-station-selector',
-  sectionOrderInput: 'section-order-input',
-  sectionAddButton: 'section-add-button',
-  sectionDeleteButton: 'section-delete-button',
-};
-
-export const MENU_BUTTON = name => {
+export const MENU = name => {
   const Array = [
     {
       name: 'station',
       id: 'station-manager-button',
       text: '1. 역관리',
+      tableHeader: ['역이름', '설정'],
+      NameInput: 'station-name-input',
+      AddButton: 'station-add-button',
+      DeleteButton: 'station-delete-button',
     },
     {
       name: 'line',
       id: 'line-manager-button',
       text: '2. 노선 관리',
+      tableHeader: ['노선이름', '상행 종점역', '하행 종점역', '설정'],
+      NameInput: 'line-name-input',
+      StartSelect: 'line-start-station-selector',
+      EndSelect: 'line-end-station-selector',
+      AddButton: 'line-add-button',
+      DeleteButton: 'line-delete-button',
     },
     {
       name: 'section',
       id: 'section-manager-button',
       text: '3. 구간 관리',
+      tableHeader: ['순서', '이름', '설정'],
+      LineMenuButton: 'section-line-menu-button',
+      StationSelect: 'section-station-selector',
+      OrderInput: 'section-order-input',
+      AddButton: 'section-add-button',
+      DeleteButton: 'section-delete-button',
     },
     {
       name: 'mapPrint',

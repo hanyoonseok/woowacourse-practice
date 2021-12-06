@@ -1,5 +1,5 @@
 import { createElement, $ } from './utils.js';
-import { MENU_BUTTON } from '../model/constants.js';
+import { MENU } from '../model/constants.js';
 import { attachButtonsInView, showContentsByName } from '../view/index.js';
 
 const initButtons = () => {
@@ -7,9 +7,9 @@ const initButtons = () => {
   const buttonsArray = buttons.map(x =>
     createElement({
       tag: 'button',
-      name: MENU_BUTTON(x).name,
-      id: MENU_BUTTON(x).id,
-      innerHTML: MENU_BUTTON(x).text,
+      name: MENU(x).name,
+      id: MENU(x).id,
+      innerHTML: MENU(x).text,
     }),
   );
   buttonsArray.forEach(button =>
@@ -24,6 +24,7 @@ const initDom = () => {
   $('app').appendChild(container);
   initButtons();
   $('app').appendChild(contents);
+  showContentsByName('station');
 };
 
 export const initGame = () => {

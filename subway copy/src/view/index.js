@@ -10,6 +10,8 @@ export const attachButtonsInView = buttonsArray => {
 };
 
 export const showContentsByName = name => {
+  const $contents = $('contents');
+  $contents.innerHTML='';
   if (name === 'station') {
     stationView();
   } else if (name === 'line') {
