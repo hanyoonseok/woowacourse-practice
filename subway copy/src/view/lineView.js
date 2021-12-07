@@ -1,4 +1,6 @@
 import { $, appendChilds, createElement } from '../controller/utils.js';
+import { addLine, makeTable } from '../controller/lineController.js';
+import { makeSelect } from '../controller/template.js';
 import { MENU } from '../model/constants.js';
 
 const makeContents = () => {
@@ -11,16 +13,20 @@ const makeContents = () => {
     placeholder: '노선 이름을 입력해주세요.',
   });
   const lineStart = createElement({ tag: 'p', innerHTML: '상행 종점' });
-  const lineStartSelect = createElement({ tag: 'select' });
+  const lineStartSelect = makeSelect('stations', MENU(type).StartSelect);
   const lineEnd = createElement({ tag: 'p', innerHTML: '하행 종점' });
-  const lineEndSelect = createElement({ tag: 'select' });
+  const lineEndSelect = makeSelect('stations', MENU(type).EndSelect);
   const lineAddButton = createElement({
     tag: 'button',
     innerHTML: '노선 추가',
     id: MENU(type).AddButton,
   });
+  const table = makeTable('line')
+  lineAddButton.addEventListener('click', () =>
+    addLine(nameInput.value, lineStartSelect.value, lineEndSelect.value),
+  );
 
-  return [inputTitle, nameInput, lineStart, lineStartSelect, lineEnd, lineEndSelect, lineAddButton];
+  return [inputTitle, nameInput, lineStart, lineStartSelect, lineEnd, lineEndSelect, lineAddButton, table];
 };
 
 export const lineView = () => {

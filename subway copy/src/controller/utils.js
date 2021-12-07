@@ -16,3 +16,5 @@ export const createElement = ({ tag, innerHTML, id, className, type, placeholder
 export const appendChilds = (parent, childs) => childs.forEach(child => parent.appendChild(child));
 
 export const getAllData = key => JSON.parse(localStorage.getItem(key)) || [];
+
+export const setAllData = (allData, key) => localStorage.setItem(key, JSON.stringify(allData));

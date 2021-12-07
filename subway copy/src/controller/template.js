@@ -1,4 +1,4 @@
-import { createElement, appendChilds } from './utils.js';
+import { createElement, appendChilds, getAllData } from './utils.js';
 import { MENU } from '../model/constants.js';
 
 export const makeTableHeader = type =>
@@ -11,3 +11,14 @@ export const tableTemplate = type => {
 
   return tableContainer;
 };
+
+const makeOptions = array => array.map(x=>createElement({tag:'option', innerHTML:x}))
+
+export const makeSelect = (key,id) => {
+  const allData = getAllData(key);
+  const selectBox = createElement({tag:'select', id:id});
+  const options = makeOptions(allData);
+  appendChilds(selectBox, options)
+
+  return selectBox
+}

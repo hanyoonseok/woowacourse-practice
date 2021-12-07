@@ -1,5 +1,5 @@
 import { tableTemplate, makeTableHeader } from './template.js';
-import { getAllData, createElement, appendChilds } from './utils.js';
+import { getAllData, createElement, appendChilds, setAllData } from './utils.js';
 import { MENU } from '../model/constants.js';
 
 const makeTableRows = type => {
@@ -30,12 +30,12 @@ export const makeTable = type => {
   return table;
 };
 
-const setAllStation = allStation => localStorage.setItem('stations', JSON.stringify(allStation));
+
 
 export const addStation = (station, table) => {
   const allStation = getAllData('stations');
   allStation.push(station);
-  setAllStation(allStation);
+  setAllData(allStation, 'stations');
   tableRefresh(table);
 };
 
