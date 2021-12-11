@@ -1,10 +1,11 @@
-const $ = id => document.getElementById(id);
-import { tabMenus } from './dom.js';
+import View from './view/index.js'
+import Controller from './controller/index.js'
 
-export default function Start() {
-  const $app = $('app');
-  //console.log(tabMenus)
-  $app.insertAdjacentHTML('beforebegin',tabMenus);
+export default class Vending {
+  constructor(){
+    this.view = new View();
+    this.controller = new Controller(this.view);
+  }
 }
 
-Start();
+new Vending();
