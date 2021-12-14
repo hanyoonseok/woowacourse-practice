@@ -1,42 +1,37 @@
-export const MENU = name => {
-  const Array = [
-    {
-      name: 'station',
-      id: 'station-manager-button',
-      text: '1. 역관리',
-      tableHeader: ['역이름', '설정'],
-      NameInput: 'station-name-input',
-      AddButton: 'station-add-button',
-      DeleteButton: 'station-delete-button',
-    },
-    {
-      name: 'line',
-      id: 'line-manager-button',
-      text: '2. 노선 관리',
-      tableHeader: ['노선이름', '상행 종점역', '하행 종점역', '설정'],
-      NameInput: 'line-name-input',
-      StartSelect: 'line-start-station-selector',
-      EndSelect: 'line-end-station-selector',
-      AddButton: 'line-add-button',
-      DeleteButton: 'line-delete-button',
-    },
-    {
-      name: 'section',
-      id: 'section-manager-button',
-      text: '3. 구간 관리',
-      tableHeader: ['순서', '이름', '설정'],
-      LineMenuButton: 'section-line-menu-button',
-      StationSelect: 'section-station-selector',
-      OrderInput: 'section-order-input',
-      AddButton: 'section-add-button',
-      DeleteButton: 'section-delete-button',
-    },
-    {
-      name: 'mapPrint',
-      id: 'map-print-manager-button',
-      text: '4. 지하철 노선도 출력',
-    },
-  ];
+export const SELECTOR = {
+  stationMenu: 'station-manager-button',
+  lineMenu: 'line-manager-button',
+  sectionMenu: 'section-manager-button',
+  printMenu: 'map-print-manager-button',
 
-  return Array.find(e => e.name === name);
+  stationNameInput: 'station-name-input',
+  stationAddButton: 'station-add-button',
+  stationDeleteButton: 'station-delete-button',
+
+  lineNameInput: 'line-name-input',
+  lineStartSelect: 'line-start-station-selector',
+  lineEndSelect: 'line-end-station-selector',
+  lineAddButton: 'line-add-button',
+  lineDeleteButton: 'line-delete-button',
+
+  sectionLineButton: 'section-line-menu-button',
+  sectionStationSelect: 'section-station-selector',
+  sectionOrderInput: 'section-order-input',
+  sectionAddButton: 'section-add-button',
+  sectionDeleteButton: 'section-delete-button',
+};
+
+export const KEY = {
+  station: 'stations',
+  line: 'lines',
+};
+
+export const ALERT_MESSAGE = {
+  isNotPositiveNumber: '1이상의 정수를 입력해주세요.',
+  isBlank: '공백을 제거해주세요',
+  isNotMultipleOf10: '10의 배수를 입력해주세요.',
+  isNotOver100: '100원 이상을 입력해주세요.',
+  isAlreadyExistProduct: '이미 존재하는 상품입니다.',
+  isNotEnoughCoin: '금액이 부족합니다.',
+  isNotEnoughQuantity: '수량이 부족합니다.',
 };

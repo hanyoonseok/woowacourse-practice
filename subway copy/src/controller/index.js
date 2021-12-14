@@ -1,32 +1,32 @@
-import { createElement, $ } from './utils.js';
-import { MENU } from '../model/constants.js';
-import { attachButtonsInView, showContentsByName } from '../view/index.js';
+import Model from '../model/index.js';
+import StationTab from './stationTab.js';
+import LineTab from './lineTab.js';
+import { SELECTOR } from '../model/constants.js';
+import { $ } from './utils.js';
 
-const initButtons = () => {
-  const buttons = ['station', 'line', 'section', 'mapPrint'];
-  const buttonsArray = buttons.map(x =>
-    createElement({
-      tag: 'button',
-      name: MENU(x).name,
-      id: MENU(x).id,
-      innerHTML: MENU(x).text,
-    }),
-  );
-  buttonsArray.forEach(button =>
-    button.addEventListener('click', () => showContentsByName(button.name)),
-  );
+export default class Controller {
+  constructor(view) {
+    this.view = view;
+    this.model = new Model();
+    this.stationTab = new StationTab(this.view, this.model);
+    this.lineTab = new LineTab(this.view, this.model);
+  }
 
-  attachButtonsInView(buttonsArray);
-};
-const initDom = () => {
-  const container = createElement({ tag: 'div', id: 'container' });
-  const contents = createElement({ tag: 'div', id: 'contents' });
-  $('app').appendChild(container);
-  initButtons();
-  $('app').appendChild(contents);
-  showContentsByName('station');
-};
+  addEventListeners() {
+    $(SELECTOR.stationMenu).addEventListener('click', () => this.callStationTab());
+    $(SELECTOR.lineMenu).addEventListener('click', () => this.callLineTab());
+    $(SELECTOR.sectionMenu).addEventListener('click', () => this.callSectionTab());
+    $(SELECTOR.printMenu).addEventListener('click', () => this.callPrintTab());
+  }
+  callStationTab() {
+    this.view.showStationTab();
+    this.stationTab.init();
+  }
 
-export const initGame = () => {
-  initDom();
-};
+  callLineTab() {
+    this.view.showLineTab();
+    this.lineTab.init();
+  }
+  callSectionTab() {}
+  callPrintTab() {}
+}

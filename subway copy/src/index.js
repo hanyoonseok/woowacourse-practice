@@ -1,3 +1,10 @@
-import {initGame} from './controller/index.js'
+import View from './view/index.js'
+import Controller from './controller/index.js'
 
-initGame();
+const init = () => {
+    const view = new View();
+    const controller = new Controller(view);
+    controller.addEventListeners();
+}
+
+init();

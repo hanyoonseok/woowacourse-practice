@@ -1,24 +1,46 @@
-import { $, appendChilds } from '../controller/utils.js';
-import { stationView } from './stationView.js';
-import { lineView } from './lineView.js';
-import { sectionView } from './sectionView.js';
-import { mapPrintView } from './mapPrintView.js';
+import { $ } from '../controller/utils.js';
+import { header, stationTab, lineTab } from '../model/template.js';
 
-export const attachButtonsInView = buttonsArray => {
-  const $container = $('container');
-  appendChilds($container, buttonsArray);
-};
-
-export const showContentsByName = name => {
-  const $contents = $('contents');
-  $contents.innerHTML='';
-  if (name === 'station') {
-    stationView();
-  } else if (name === 'line') {
-    lineView();
-  } else if (name === 'section') {
-    sectionView();
-  } else if (name === 'mapPrint') {
-    mapPrintView();
+export default class View {
+  constructor() {
+    this.$app = $('app');
+    this.showHeader();
+    this.showStationTab();
   }
-};
+
+  showHeader() {
+    this.$app.insertAdjacentHTML('beforeend', header);
+  }
+
+  clearContainer() {
+    $('container').innerHTML = '';
+  }
+  showStationTab() {
+    this.clearContainer();
+    $('container').insertAdjacentHTML('afterbegin', stationTab);
+  }
+  showLineTab() {
+    this.clearContainer();
+    $('container').insertAdjacentHTML('afterbegin', lineTab);
+  }
+
+  addTableHeader(table, headerForm) {
+    table.insertAdjacentHTML('beforeend', headerForm);
+  }
+
+  addTableRow(table, rowForm) {
+    table.insertAdjacentHTML('beforeend', rowForm);
+  }
+
+  setInnerHTML(target, value) {
+    target.innerHTML = value;
+  }
+
+  clearInput(input) {
+    input.value = '';
+  }
+
+  clearTable(table) {
+    table.innerHTML = '';
+  }
+}
