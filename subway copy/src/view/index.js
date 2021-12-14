@@ -43,4 +43,11 @@ export default class View {
   clearTable(table) {
     table.innerHTML = '';
   }
+  addOptions(select, value) {
+    value.forEach(option => {
+      const optionTag = document.createElement('option');
+      optionTag.innerHTML = option;
+      select.appendChild(optionTag);
+    });
+  }
 }
