@@ -1,5 +1,5 @@
 import { $ } from '../utils/index.js';
-import { template } from '../model/template.js';
+import { template, resultComponent } from '../model/template.js';
 
 export default class View {
   constructor() {
@@ -9,5 +9,9 @@ export default class View {
 
   showView() {
     this.$app.insertAdjacentHTML('afterbegin', template);
+  }
+  showResult(result, info) {
+    $('result').innerHTML = '';
+    $('result').insertAdjacentHTML('afterbegin', resultComponent(result, info));
   }
 }

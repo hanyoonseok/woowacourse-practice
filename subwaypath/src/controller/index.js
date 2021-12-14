@@ -25,26 +25,46 @@ export default class Controller {
     });
   }
   addDistanceEdges() {
-    this.model.lines.forEach(line =>
-      line.info.forEach(edge => this.dijkstra.addEdge(edge.depart, edge.arrive, edge.cost[0])),
-    );
+    this.model.lines.forEach(line => this.dijkstra.addEdge(line.depart, line.arrive, line.cost[0]));
   }
   addTimeEdges() {
-    this.model.lines.forEach(line =>
-      line.info.forEach(edge => this.dijkstra.addEdge(edge.depart, edge.arrive, edge.cost[1])),
-    );
+    this.model.lines.forEach(line => this.dijkstra.addEdge(line.depart, line.arrive, line.cost[1]));
   }
 
   findShortest(type) {
+    let text;
     if (type === 'distance') {
       this.addDistanceEdges();
+      text = '최단거리';
     } else if (type === 'time') {
       this.addTimeEdges();
+      text = '최소시간';
     }
 
     const depart = $(SELECTOR.departure).value;
     const arrive = $(SELECTOR.arrival).value;
     const result = this.dijkstra.findShortestPath(depart, arrive);
-    console.log(result);
+    const info = this.findInfo(result);
+    info.type = text;
+    this.view.showResult(result.join('▶'), info);
+  }
+
+  findInfo(result) {
+    let dist = 0;
+    let time = 0;
+    for (let i = 0; i < result.length - 1; i += 1) {
+      const depart = result[i];
+      const arrive = result[i + 1];
+      for (let j = 0; j < this.model.lines.length - 1; j += 1) {
+        const row = this.model.lines[j];
+        if (row.depart === depart && row.arrive === arrive) {
+          dist += row.cost[0];
+          time += row.cost[1];
+          break;
+        }
+      }
+    }
+    console.log(dist, time);
+    return { dist, time };
   }
 }
