@@ -39,7 +39,12 @@ export const lineTab = `
 export const sectionTab = `
 <h2>구간을 수정할 노선을 선택해주세요.</h2>
 <div id="section-lines"></div>
+<div id="section-line-contents"></div>
 `;
+
+export const printTab = `
+
+`
 
 export const stationTableHeader = `
 <th>역이름</th>
@@ -63,14 +68,38 @@ export const lineTableHeader = `
 export const lineTableRow = line => `
 <tr>
     <td>${line.name}</td>
-    <td>${line.start}</td>
-    <td>${line.end}</td>
+    <td>${line.stations[0]}</td>
+    <td>${line.stations[line.stations.length - 1]}</td>
     <td><button class=${SELECTOR.lineDeleteButton} data-line=${line.name}>삭제</button></td>
 </tr>
 `;
 
-export const sectionContents = lines => `
-<h2>${lines.name}관리</h2>
+export const sectionLineContents = line => `
+<h2>${line.name}관리</h2>
 <h3>구간 등록<h3>
-<select id=${SELECTOR.sectionStationSelect}></select>
+<select id=${SELECTOR.sectionStationSelect}></select><input type="number" id=${SELECTOR.sectionOrderInput} placeholder="순서"/>
+<button id=${SELECTOR.sectionAddButton} data-line=${line.name}>등록</button>
+<table border="1">
+<tbody>
+</tbody>
+</table>
 `;
+
+export const sectionTableHeader = `
+<th>순서</th>
+<th>이름</th>
+<th>설정</th>
+`
+
+export const sectionTableRow = (station, index) => `
+<tr>
+    <td>${index}</td>
+    <td>${station}</td>
+    <td><button class=${SELECTOR.sectionDeleteButton} data-station=${station}>노선에서 제거</button></td>
+</tr>
+`
+
+export const printTitle = line => `
+<h2>${line.name}</h2>
+<ul></ul>
+`

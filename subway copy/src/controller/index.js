@@ -1,6 +1,8 @@
 import Model from '../model/index.js';
 import StationTab from './stationTab.js';
 import LineTab from './lineTab.js';
+import SectionTab from './sectionTab.js';
+import PrintTab from './printTab.js';
 import { SELECTOR } from '../model/constants.js';
 import { $ } from './utils.js';
 
@@ -10,6 +12,8 @@ export default class Controller {
     this.model = new Model();
     this.stationTab = new StationTab(this.view, this.model);
     this.lineTab = new LineTab(this.view, this.model);
+    this.sectionTab = new SectionTab(this.view, this.model);
+    this.printTab = new PrintTab(this.view, this.model);
   }
 
   addEventListeners() {
@@ -27,6 +31,12 @@ export default class Controller {
     this.view.showLineTab();
     this.lineTab.init();
   }
-  callSectionTab() {}
-  callPrintTab() {}
+  callSectionTab() {
+    this.view.showSectionTab();
+    this.sectionTab.init();
+  }
+  callPrintTab() {
+    this.view.showPrintTab();
+    this.printTab.init();
+  }
 }

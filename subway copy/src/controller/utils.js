@@ -64,3 +64,5 @@ export const validation = {
     return isExist;
   },
 };
+
+export const onKeyUpNumericEvent = input => (input.value = input.value.replace(/[^0-9]/g, ''));

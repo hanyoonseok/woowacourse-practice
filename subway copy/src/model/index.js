@@ -32,8 +32,7 @@ export default class Model {
   makeLine(name, start, end) {
     return {
       name,
-      start,
-      end,
+      stations: [start, end],
     };
   }
   addLine(line) {
@@ -45,5 +44,18 @@ export default class Model {
     const lines = this.getLines();
     let deletedLines = lines.filter(x => x.name !== line);
     this.setLine(deletedLines);
+  }
+  addStationInOrder(station, order, line) {
+    const lines = this.getLines();
+    const selectedLine = lines.find(e => e.name === line);
+    selectedLine.stations.splice(order, 0, station);
+    this.setLine(lines);
+  }
+  deleteStationInLine(line, station) {
+    const lines = this.getLines();
+    const selectedLine = lines.find(e => e.name === line.name);
+    const deletedLine = selectedLine.stations.filter(x => x !== station)
+    selectedLine.stations = deletedLine;
+    this.setLine(lines);
   }
 }
