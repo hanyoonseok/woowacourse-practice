@@ -1,4 +1,4 @@
-import { $ } from './utils.js';
+import { $, validation, onKeyUpNumericEvent } from './utils.js';
 import { SELECTOR, COIN_ARRAY } from '../constants/constants.js';
 
 export default class VendingTag {
@@ -14,13 +14,18 @@ export default class VendingTag {
 
   addEventListeners() {
     $(SELECTOR.vendingChargeButton).addEventListener('click', () => this.addVendingCharge());
+    $(SELECTOR.vendingChargeInput).addEventListener('keyup', () =>
+      onKeyUpNumericEvent($(SELECTOR.vendingChargeInput)),
+    );
   }
 
   addVendingCharge() {
     const chargeInput = $(SELECTOR.vendingChargeInput);
-    const randomCoinArray = this.makeRandomCoin(chargeInput.value);
-    this.model.chargeVending(chargeInput.value, randomCoinArray);
-    this.initDom();
+    if (validation.isInputNumberValid(chargeInput)) {
+      const randomCoinArray = this.makeRandomCoin(chargeInput.value);
+      this.model.chargeVending(chargeInput.value, randomCoinArray);
+      this.initDom();
+    }
   }
 
   initTable() {

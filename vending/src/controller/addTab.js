@@ -1,4 +1,4 @@
-import { $, validation } from './utils.js';
+import { $, validation, onKeyUpNumericEvent } from './utils.js';
 import { SELECTOR } from '../constants/constants.js';
 import { addTabTableRow } from '../constants/template.js';
 
@@ -21,6 +21,12 @@ export default class AddTab {
 
   addEventListeners() {
     $(SELECTOR.productAddButon).addEventListener('click', () => this.addProduct());
+    $(SELECTOR.productPriceInput).addEventListener('keyup', () =>
+      onKeyUpNumericEvent($(SELECTOR.productPriceInput)),
+    );
+    $(SELECTOR.productQuantityInput).addEventListener('keyup', () =>
+      onKeyUpNumericEvent($(SELECTOR.productQuantityInput)),
+    );
   }
 
   initInput() {

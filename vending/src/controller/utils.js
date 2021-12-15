@@ -51,4 +51,11 @@ export const validation = {
 
     return isDuplicate;
   },
+
+  isInputNumberValid(input) {
+    const isValid = this.isPositiveNumber(input) && !this.isBlankExist(input);
+    return isValid;
+  },
 };
+
+export const onKeyUpNumericEvent = input => (input.value = input.value.replace(/[^0-9]/g, ''));
