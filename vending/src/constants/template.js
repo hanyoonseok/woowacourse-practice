@@ -28,7 +28,7 @@ export const addTab = `
 `;
 
 export const vendingTab = `
-<h2자판기 동전 충전하기</h2>
+<h2>자판기 동전 충전하기</h2>
 <input type="number" id=${SELECTOR.vendingChargeInput} placeholder="자판기가 보유할 금액"/>
 <button id=${SELECTOR.vendingChargeButton}>충전하기</button>
 <div>보유 금액: <span id=${SELECTOR.vendingChargeAmount}></span></div>
@@ -41,10 +41,16 @@ export const vendingTab = `
 <tr>
 <td>500원</td>
 <td id=${SELECTOR.vendingCoin500Quantity}></td>
+</tr>
+<tr>
 <td>100원</td>
 <td id=${SELECTOR.vendingCoin100Quantity}></td>
+</tr>
+<tr>
 <td>50원</td>
 <td id=${SELECTOR.vendingCoin50Quantity}></td>
+</tr>
+<tr>
 <td>10원</td>
 <td id=${SELECTOR.vendingCoin10Quantity}></td>
 </tr>

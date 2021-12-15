@@ -30,6 +30,8 @@ export const validation = {
     if (!isMultiple) {
       alertMessage(input, ALERT_MESSAGE.isNotMultipleOf10);
     }
+
+    return isMultiple;
   },
 
   isBiggerThan100(input) {
@@ -37,6 +39,8 @@ export const validation = {
     if (!isBigger) {
       alertMessage(input, ALERT_MESSAGE.isNotBiggerThan100);
     }
+
+    return isBigger;
   },
 
   isDuplicated(array, input) {
@@ -45,6 +49,6 @@ export const validation = {
       alert(`중복된 ${input.placeholder}이 존재합니다`);
     }
 
-    return isDuplicate
+    return isDuplicate;
   },
 };

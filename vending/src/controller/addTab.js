@@ -30,9 +30,7 @@ export default class AddTab {
   }
 
   isProductNameValid(productName) {
-    const allProductsName = this.model.getProducts().map(e => {
-      return e.name;
-    });
+    const allProductsName = this.model.getProducts().map(e => e.name);
     return (
       !validation.isBlankExist(productName) &&
       !validation.isDuplicated(allProductsName, productName)
@@ -69,7 +67,7 @@ export default class AddTab {
     if (this.isProductInfoValid(productName, productPrice, productQuantity)) {
       const newProduct = this.model.makeProduct(productName, productPrice, productQuantity);
       const table = this.view.getTable();
-      const allProducts = this.model.getProducts();
+
       this.view.addTableRow(table, addTabTableRow(newProduct));
       this.model.addProduct(newProduct);
       this.initInput();
