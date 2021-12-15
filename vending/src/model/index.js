@@ -49,4 +49,23 @@ export default class Model {
       coins: randomCoinArray,
     };
   }
+
+  getCharge() {
+    return JSON.parse(localStorage.getItem(KEY.charge));
+  }
+
+  setCharge(charge) {
+    localStorage.setItem(KEY.charge, JSON.stringify(charge));
+  }
+
+  addCharge(chargeInput) {
+    let charge = this.getCharge();
+    if (charge || charge === 0) {
+      charge += parseInt(chargeInput.value);
+    } else if (charge === null) {
+      charge = parseInt(chargeInput.value);
+    }
+
+    this.setCharge(charge);
+  }
 }

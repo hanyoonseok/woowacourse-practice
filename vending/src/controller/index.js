@@ -2,6 +2,7 @@ import { $ } from './utils.js';
 import { SELECTOR } from '../constants/constants.js';
 import AddTab from './addTab.js';
 import VendingTab from './vendingTab.js';
+import PurchaseTab from './purchaseTab.js';
 
 export default class Controller {
   constructor(view, model) {
@@ -9,6 +10,7 @@ export default class Controller {
     this.model = model;
     this.addTab = new AddTab(this.view, this.model);
     this.vendingTab = new VendingTab(this.view, this.model);
+    this.purchaseTab = new PurchaseTab(this.view, this.model);
     this.showAddTab();
   }
 
@@ -30,5 +32,6 @@ export default class Controller {
 
   showPurchaseTab() {
     this.view.showPurchaseTab();
+    this.purchaseTab.init();
   }
 }
