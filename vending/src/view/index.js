@@ -9,6 +9,23 @@ export default class View {
     this.setContainer();
   }
 
+  getTable() {
+    return document.querySelector('tbody');
+  }
+
+  clearTable(table) {
+    table.innerHTML = '';
+  }
+
+  addTableHeader(table, headerForm) {
+    table.insertAdjacentHTML('beforeend', headerForm);
+  }
+
+  addTableRow(table, rowForm) {
+    table.insertAdjacentHTML('beforeend', rowForm);
+    console.log(table)
+  }
+
   setContainer() {
     this.$container = $(SELECTOR.container);
   }
@@ -24,5 +41,9 @@ export default class View {
   showAddTab() {
     this.clearContainer();
     this.$container.insertAdjacentHTML('afterbegin', addTab);
+  }
+
+  clearInput(input) {
+    input.value = '';
   }
 }

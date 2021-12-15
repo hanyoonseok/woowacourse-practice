@@ -20,6 +20,9 @@ export const addTab = `
 <h2>상품 현황</h2>
 <table border="1">
 <tbody>
+<th>상품명</th>
+<th>가격</th>
+<th>수량</th>
 </tbody>
 </table>
 `;
@@ -85,4 +88,12 @@ export const purchaseTab = `
     </tr>
 </tbody>
 </table>
+`;
+
+export const addTabTableRow = product => `
+<tr class=${SELECTOR.productItem}>
+    <td class=${SELECTOR.productName}>${product.name}</td>
+    <td class=${SELECTOR.productPrice}>${product.price}</td>
+    <td class=${SELECTOR.productQuantity}>${product.quantity}</td>
+</tr>
 `;
