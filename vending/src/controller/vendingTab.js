@@ -9,6 +9,7 @@ export default class VendingTag {
 
   init() {
     this.addEventListeners();
+    this.initDom();
   }
 
   addEventListeners() {
@@ -19,6 +20,18 @@ export default class VendingTag {
     const chargeInput = $(SELECTOR.vendingChargeInput);
     const randomCoinArray = this.makeRandomCoin(chargeInput.value);
     this.model.chargeVending(chargeInput.value, randomCoinArray);
+    this.initDom();
+  }
+
+  initTable() {
+    const coins = this.model.getVending().coins;
+    this.view.initVendingTable(coins);
+  }
+
+  initDom() {
+    this.view.clearInput($(SELECTOR.vendingChargeInput));
+    $(SELECTOR.vendingChargeAmount).innerHTML = this.model.getVending().price;
+    this.initTable();
   }
 
   makeRandomCoin(chargeInputValue) {

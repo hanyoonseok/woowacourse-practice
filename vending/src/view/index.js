@@ -1,6 +1,6 @@
 import { $ } from '../controller/utils.js';
 import { header, addTab, vendingTab } from '../constants/template.js';
-import { SELECTOR } from '../constants/constants.js';
+import { SELECTOR, VENDING_COIN_X_QUANTITY, COIN_ARRAY } from '../constants/constants.js';
 
 export default class View {
   constructor() {
@@ -49,5 +49,9 @@ export default class View {
 
   clearInput(input) {
     input.value = '';
+  }
+
+  initVendingTable(coins) {
+    coins.forEach((coin, i) => ($(VENDING_COIN_X_QUANTITY(COIN_ARRAY[i])).innerHTML = `${coin}개`));
   }
 }

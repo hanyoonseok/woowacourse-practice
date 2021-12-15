@@ -34,10 +34,11 @@ export default class Model {
   chargeVending(inputValue, randomCoinArray) {
     let vendingMachine = this.getVending();
     if (vendingMachine || vendingMachine === 0) {
-      vendingMachine.price += inputValue;
-      vendingMachine.coins.forEach((coin, i) => (coin += randomCoinArray[i]));
+      const newCoinArray = vendingMachine.coins.map((coin, i) => (coin += randomCoinArray[i]));
+      vendingMachine.price += parseInt(inputValue);
+      vendingMachine.coins = newCoinArray;
     } else if (vendingMachine === null) {
-      vendingMachine = this.makeVending(inputValue, randomCoinArray);
+      vendingMachine = this.makeVending(parseInt(inputValue), randomCoinArray);
     }
     this.setVending(vendingMachine);
   }
