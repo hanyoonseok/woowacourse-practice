@@ -2,7 +2,7 @@ export const SELECTOR = {
   addMenu: 'product-add-menu',
   vendingMenu: 'vending-machine-manage-menu',
   purchaseMenu: 'product-purchase-menu',
-  container :'container',
+  container: 'container',
 
   productNameInput: 'product-name-input',
   productPriceInput: 'product-price-input',
@@ -38,6 +38,12 @@ export const SELECTOR = {
   datasetName: 'data-product-name',
   datasetPrice: 'data-product-price',
   datasetQuantity: 'data-product-quantity',
+};
+
+export const KEY = {
+  product: 'products',
+  vending: 'vendingMachine',
+  charge: 'userCharge',
 };
 
 export const ALERT_MESSAGE = {};
