@@ -1,6 +1,6 @@
 import { SELECTOR } from '../model/constants.js';
 import Dijkstra from '../utils/Dijkstra.js';
-import { $ } from '../utils/index.js';
+import { $, validation } from '../utils/index.js';
 
 export default class Controller {
   constructor(view, model) {
@@ -31,6 +31,14 @@ export default class Controller {
     this.model.lines.forEach(line => this.dijkstra.addEdge(line.depart, line.arrive, line.cost[1]));
   }
 
+  isInputValid(depart, arrive) {
+    return (
+      !validation.isBlankExist(depart) &&
+      !validation.isBlankExist(arrive) &&
+      validation.isExistStation(this.model.stations, depart) &&
+      validation.isExistStation(this.model.stations, arrive)
+    );
+  }
   findShortest(type) {
     let text;
     if (type === 'distance') {
@@ -41,30 +49,43 @@ export default class Controller {
       text = '최소시간';
     }
 
-    const depart = $(SELECTOR.departure).value;
-    const arrive = $(SELECTOR.arrival).value;
-    const result = this.dijkstra.findShortestPath(depart, arrive);
-    const info = this.findInfo(result);
-    info.type = text;
-    this.view.showResult(result.join('▶'), info);
+    const depart = $(SELECTOR.departure);
+    const arrive = $(SELECTOR.arrival);
+    if (this.isInputValid(depart, arrive)) {
+      const result = this.dijkstra.findShortestPath(depart.value, arrive.value);
+      const info = this.findInfo(result);
+      info.type = text;
+      this.view.showResult(result.join('▶'), info);
+    }
   }
 
-  findInfo(result) {
-    let dist = 0;
-    let time = 0;
-    for (let i = 0; i < result.length - 1; i += 1) {
-      const depart = result[i];
-      const arrive = result[i + 1];
-      for (let j = 0; j < this.model.lines.length - 1; j += 1) {
-        const row = this.model.lines[j];
-        if (row.depart === depart && row.arrive === arrive) {
-          dist += row.cost[0];
-          time += row.cost[1];
-          break;
-        }
+  makePrettyResult(result) {
+    let pretty = [];
+    while (result.length >= 2) {
+      pretty.push({ start: result[0], end: result[1] });
+      result.splice(0, 1);
+    }
+
+    return pretty;
+  }
+
+  increaseDistAndTimeByExistence(section, distAndTime) {
+    for (const line of this.model.lines) {
+      if (line.depart === section.start && line.arrive === section.end) {
+        distAndTime.dist += line.cost[0];
+        distAndTime.time += line.cost[1];
+        break;
       }
     }
-    console.log(dist, time);
-    return { dist, time };
+  }
+  findInfo(result) {
+    const distAndTime = {dist:0, time:0}
+    const resultCopy = [...result];
+    const pretty = this.makePrettyResult(resultCopy);
+
+    pretty.forEach(section => {
+      this.increaseDistAndTimeByExistence(section, distAndTime);
+    });
+    return distAndTime;
   }
 }
