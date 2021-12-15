@@ -1,4 +1,4 @@
-import { $ } from './utils.js';
+import { $, onKeyUpNumericEvent, validation } from './utils.js';
 import { SELECTOR, COIN_ARRAY } from '../constants/constants.js';
 import { purchaseTableHeader, purchaseTableRow } from '../constants/template.js';
 
@@ -26,6 +26,9 @@ export default class PurchaseTab {
   addEventListeners() {
     $(SELECTOR.chargeButton).addEventListener('click', () => this.chargeMoney());
     $(SELECTOR.returnButton).addEventListener('click', () => this.returnMoney());
+    $(SELECTOR.chargeInput).addEventListener('keyup', () =>
+      onKeyUpNumericEvent($(SELECTOR.chargeInput)),
+    );
   }
 
   initDom() {
@@ -34,10 +37,16 @@ export default class PurchaseTab {
     this.view.setInnerHTML($(SELECTOR.chargeAmount), chargeAmount);
   }
 
+  isChargeInputValid(chargeInput) {
+    return validation.isInputNumberValid(chargeInput) && validation.isMultipleOf10(chargeInput);
+  }
+
   chargeMoney() {
     const chargeInput = $(SELECTOR.chargeInput);
-    this.model.addCharge(chargeInput);
-    this.initDom();
+    if (this.isChargeInputValid(chargeInput)) {
+      this.model.addCharge(chargeInput);
+      this.initDom();
+    }
   }
 
   addAllPurchaseButtonEvent() {
@@ -51,12 +60,14 @@ export default class PurchaseTab {
     const allProducts = this.model.getProducts();
     let charge = this.model.getCharge();
     const selectedProduct = allProducts.find(e => e.name === target);
-    selectedProduct.quantity -= 1;
-    charge -= selectedProduct.price;
-    this.model.setProducts(allProducts);
-    this.model.setCharge(charge);
-    this.initTable();
-    this.initDom();
+    if (selectedProduct.quantity >= 1) {
+      selectedProduct.quantity -= 1;
+      charge -= selectedProduct.price;
+      this.model.setProducts(allProducts);
+      this.model.setCharge(charge);
+      this.initTable();
+      this.initDom();
+    }
   }
 
   getReturnCoinByCharge(type, vendingMachine, newVendingCoins) {
