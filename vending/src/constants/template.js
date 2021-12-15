@@ -103,3 +103,19 @@ export const addTabTableRow = product => `
     <td class=${SELECTOR.productQuantity}>${product.quantity}</td>
 </tr>
 `;
+
+export const purchaseTableHeader = `
+<th>상품명</th>
+<th>가격</th>
+<th>수량</th>
+<th>구매</th>
+`;
+
+export const purchaseTableRow = item => `
+<tr class=${SELECTOR.purchaseItem}>
+    <td class=${SELECTOR.purchaseName} data-product-name=${item.name}>${item.name}</td>
+    <td class=${SELECTOR.purchasePrice} data-product-price=${item.price}>${item.price}</td>
+    <td class=${SELECTOR.purchaseQuantity} data-product-quantity=${item.quantity}>${item.quantity}</td>
+    <td><button class=${SELECTOR.purchaseButton} data-target=${item.name}>구매하기</button></td>
+</tr>
+`;

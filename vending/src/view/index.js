@@ -49,11 +49,15 @@ export default class View {
 
   showPurchaseTab() {
     this.clearContainer();
-    this.$container.insertAdjacentHTML('afterbegin', purchaseTab)
+    this.$container.insertAdjacentHTML('afterbegin', purchaseTab);
   }
 
   clearInput(input) {
     input.value = '';
+  }
+
+  setInnerHTML(dom, value) {
+    dom.innerHTML = value;
   }
 
   initVendingTable(coins) {
