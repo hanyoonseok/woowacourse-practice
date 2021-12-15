@@ -28,5 +28,7 @@ export default class Controller {
     this.vendingTab.init();
   }
 
-  showPurchaseTab() {}
+  showPurchaseTab() {
+    this.view.showPurchaseTab();
+  }
 }

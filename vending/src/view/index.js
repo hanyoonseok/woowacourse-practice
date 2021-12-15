@@ -1,5 +1,5 @@
 import { $ } from '../controller/utils.js';
-import { header, addTab, vendingTab } from '../constants/template.js';
+import { header, addTab, vendingTab, purchaseTab } from '../constants/template.js';
 import { SELECTOR, VENDING_COIN_X_QUANTITY, COIN_ARRAY } from '../constants/constants.js';
 
 export default class View {
@@ -45,6 +45,11 @@ export default class View {
   showVendingTab() {
     this.clearContainer();
     this.$container.insertAdjacentHTML('afterbegin', vendingTab);
+  }
+
+  showPurchaseTab() {
+    this.clearContainer();
+    this.$container.insertAdjacentHTML('afterbegin', purchaseTab)
   }
 
   clearInput(input) {
