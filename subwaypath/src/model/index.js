@@ -1,6 +1,16 @@
 export default class Model {
   constructor() {
-    this.stations = ['교대', '강남', '역삼', '남부터미널', '양재', '양재시민의숲', '매봉'];
+    this.stations = [
+      '교대',
+      '강남',
+      '역삼',
+      '남부터미널',
+      '양재',
+      '양재시민의숲',
+      '매봉',
+      '능곡',
+      '이촌',
+    ];
     this.lines = [
       { name: '2호선', depart: '교대', arrive: '강남', cost: [2, 3] },
       { name: '2호선', depart: '강남', arrive: '교대', cost: [2, 3] },
@@ -18,6 +28,8 @@ export default class Model {
       { name: '신분당선', depart: '양재', arrive: '강남', cost: [2, 8] },
       { name: '신분당선', depart: '양재', arrive: '양재시민의숲', cost: [10, 3] },
       { name: '신분당선', depart: '양재시민의숲', arrive: '양재', cost: [10, 3] },
+
+      { name: '경의선', depart: '능곡', arrive: '이촌', cost: [10, 3] },
     ];
   }
 }

@@ -13,16 +13,12 @@ export default class Controller {
   }
 
   addEventListeners() {
-    $(SELECTOR.search).addEventListener('click', () => this.searchShortest());
+    $(SELECTOR.search).addEventListener('click', () => this.checkRadioButtonValue());
   }
 
-  searchShortest() {
-    const radios = document.getElementsByName(SELECTOR.radio);
-    radios.forEach(x => {
-      if (x.checked) {
-        this.findShortest(x.value);
-      }
-    });
+  checkRadioButtonValue() {
+    const radioValue = document.querySelector(`input[name=${SELECTOR.radio}]:checked`).value;
+    this.findShortest(radioValue);
   }
   addDistanceEdges() {
     this.model.lines.forEach(line => this.dijkstra.addEdge(line.depart, line.arrive, line.cost[0]));
@@ -36,10 +32,13 @@ export default class Controller {
       !validation.isBlankExist(depart) &&
       !validation.isBlankExist(arrive) &&
       validation.isExistStation(this.model.stations, depart) &&
-      validation.isExistStation(this.model.stations, arrive)
+      validation.isExistStation(this.model.stations, arrive) &&
+      !validation.isSameWithDepartAndArrive(depart, arrive) &&
+      validation.isPossibleRoute(this.model.lines, depart, arrive)
     );
   }
-  findShortest(type) {
+
+  settingByType(type) {
     let text;
     if (type === 'distance') {
       this.addDistanceEdges();
@@ -49,11 +48,15 @@ export default class Controller {
       text = '최소시간';
     }
 
+    return text;
+  }
+  findShortest(type) {
+    const text = this.settingByType(type);
     const depart = $(SELECTOR.departure);
     const arrive = $(SELECTOR.arrival);
     if (this.isInputValid(depart, arrive)) {
       const result = this.dijkstra.findShortestPath(depart.value, arrive.value);
-      const info = this.findInfo(result);
+      const info = this.findInfo(result); //소요 거리, 시간 확인
       info.type = text;
       this.view.showResult(result.join('▶'), info);
     }
@@ -79,13 +82,14 @@ export default class Controller {
     }
   }
   findInfo(result) {
-    const distAndTime = {dist:0, time:0}
+    const distAndTime = { dist: 0, time: 0 };
     const resultCopy = [...result];
     const pretty = this.makePrettyResult(resultCopy);
 
     pretty.forEach(section => {
       this.increaseDistAndTimeByExistence(section, distAndTime);
     });
+
     return distAndTime;
   }
 }

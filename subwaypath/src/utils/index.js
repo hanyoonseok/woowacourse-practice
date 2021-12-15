@@ -16,62 +16,47 @@ export const validation = {
     return isIncludeBlank;
   },
 
-  isPositiveNumber(input) {
-    const isPositive = parseInt(input.value, 10) > 0;
-    if (!isPositive) {
-      alertMessage(input, ALERT_MESSAGE.isNotPositiveNumber);
-    }
-
-    return isPositive;
-  },
-
-  isInputNumberValid(input) {
-    return !this.isBlankExist(input) && this.isPositiveNumber(input);
-  },
-
-  isMultipleOf10(input) {
-    const isMultiple = parseInt(input.value, 10) % 10 === 0;
-    if (!isMultiple) {
-      alertMessage(input, ALERT_MESSAGE.isNotMultipleOf10);
-    }
-
-    return isMultiple;
-  },
-
-  isOver100(input) {
-    const isOver = parseInt(input.value) >= 100;
-    if (!isOver) {
-      alertMessage(input, ALERT_MESSAGE.isNotOver100);
-    }
-
-    return isOver;
-  },
-
-  isEnoughCoin(chargeInput, price) {
-    const isEnough = chargeInput >= price;
-    if (!isEnough) {
-      alert(ALERT_MESSAGE.isNotEnoughCoin);
-    }
-
-    return isEnough;
-  },
-
-  isAlreadyExistProduct(productName) {
-    const allProducts = getItemOrArray('products');
-    const isExist = allProducts.find(e => e.name === productName.value);
-    if (isExist) {
-      alertMessage(ALERT_MESSAGE.isAlreadyExistProduct);
-    }
-
-    return isExist;
-  },
   isExistStation(stations, station) {
     const isExist = stations.find(e => e === station.value);
     if (!isExist) {
-        alertMessage(station, ALERT_MESSAGE.isNotExistStation);
+      alertMessage(station, ALERT_MESSAGE.isNotExistStation);
     }
 
     return isExist;
+  },
+
+  isSameWithDepartAndArrive(depart, arrive) {
+    const isSame = depart.value === arrive.value;
+    if (isSame) {
+      alert(ALERT_MESSAGE.isSameWithDepartAndArrive);
+    }
+
+    return isSame;
+  },
+
+  isPossibleRoute(lines, depart, arrive) {
+    let isPossible = false;
+    let queue = [depart.value];
+    let alreadyCheck = [depart.value];
+    while (queue.length !== 0) {
+      let isFound = false;
+      const station = queue[0];
+      queue.splice(0, 1);
+      lines.forEach(line => {
+        if (line.depart === station && line.arrive === arrive.value) {
+          isPossible = true;
+        } else if (line.depart === station && !alreadyCheck.find(e => e === line.arrive)) {
+          queue.push(line.arrive);
+          alreadyCheck.push(line.arrive);
+        }
+      });
+      if (isFound) break;
+    }
+
+    if (!isPossible) {
+      alert(ALERT_MESSAGE.isNotPossibleLine);
+    }
+    return isPossible;
   },
 };
 
