@@ -30,12 +30,17 @@ export default class VendingTag {
 
   initTable() {
     const coins = this.model.getVending().coins;
-    this.view.initVendingTable(coins);
+    if (coins) {
+      this.view.initVendingTable(coins);
+    }
   }
 
   initDom() {
+    const vending = this.model.getVending();
     this.view.clearInput($(SELECTOR.vendingChargeInput));
-    $(SELECTOR.vendingChargeAmount).innerHTML = this.model.getVending().price;
+    if (vending || vending === 0) {
+      this.view.setInnerHTML($(SELECTOR.vendingChargeAmount), this.model.getVending().price);
+    }
     this.initTable();
   }
 

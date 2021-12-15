@@ -59,26 +59,41 @@ export default class PurchaseTab {
     this.initDom();
   }
 
-  returnMinimumCoin(charge, coins) {
-    let coinsCopy = coins.map((quantity, i) => {
+  getReturnCoinByCharge(type, vendingMachine, newVendingCoins) {
+    let returnCoin;
+    if (type) {
+      //charge > vending -> 원래 vending coin
+      returnCoin = vendingMachine.coins;
+    } else {
+      //새로운 new vending
+      returnCoin = vendingMachine.coins.map((quantity, i) => quantity - newVendingCoins[i]);
+    }
+    vendingMachine.coins = newVendingCoins;
+    this.model.setVending(vendingMachine);
+
+    return returnCoin;
+  }
+
+  returnMinimumCoin(charge) {
+    const vendingMachine = this.model.getVending();
+    const type = charge > vendingMachine.price;
+    let newVendingCoins = vendingMachine.coins.map((quantity, i) => {
       while (charge >= COIN_ARRAY[i] && quantity > 0) {
         charge -= COIN_ARRAY[i];
         quantity -= 1;
+        vendingMachine.price -= COIN_ARRAY[i];
       }
       return quantity;
     });
     this.model.setCharge(charge);
 
-    return coinsCopy;
+    return this.getReturnCoinByCharge(type, vendingMachine, newVendingCoins);
   }
 
   returnMoney() {
     const charge = this.model.getCharge();
-    const vendingMachine = this.model.getVending();
-    const minimumCoin = this.returnMinimumCoin(charge, vendingMachine.coins);
-    vendingMachine.coins = minimumCoin;
-    minimumCoin.forEach((quantity, i) => (vendingMachine.price -= COIN_ARRAY[i] * quantity));
-    this.model.setVending(vendingMachine);
+    const returnCoinArray = this.returnMinimumCoin(charge);
+    console.log(returnCoinArray);
     this.initDom();
   }
 }
