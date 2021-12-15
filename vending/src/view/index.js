@@ -23,7 +23,6 @@ export default class View {
 
   addTableRow(table, rowForm) {
     table.insertAdjacentHTML('beforeend', rowForm);
-    console.log(table)
   }
 
   setContainer() {

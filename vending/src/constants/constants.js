@@ -46,6 +46,11 @@ export const KEY = {
   charge: 'userCharge',
 };
 
-export const ALERT_MESSAGE = {};
+export const ALERT_MESSAGE = {
+  isBlankExist: '공백을 제거해주세요',
+  isNotPositive: '1이상의 양수를 작성해주세요',
+  isNotMultipleOf10: '10의 배수를 작성해주세요',
+  isNotBiggerThan100: '100원 이상 작성해주세요',
+};
 
 export const COIN_ARRAY = [500, 100, 50, 10];
