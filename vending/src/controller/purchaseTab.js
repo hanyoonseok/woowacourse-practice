@@ -1,5 +1,5 @@
 import { $ } from './utils.js';
-import { SELECTOR } from '../constants/constants.js';
+import { SELECTOR, COIN_ARRAY } from '../constants/constants.js';
 import { purchaseTableHeader, purchaseTableRow } from '../constants/template.js';
 
 export default class PurchaseTab {
@@ -25,7 +25,7 @@ export default class PurchaseTab {
 
   addEventListeners() {
     $(SELECTOR.chargeButton).addEventListener('click', () => this.chargeMoney());
-    $(SELECTOR.returnButton).addEventListener('click', () => returnMoney());
+    $(SELECTOR.returnButton).addEventListener('click', () => this.returnMoney());
   }
 
   initDom() {
@@ -59,5 +59,26 @@ export default class PurchaseTab {
     this.initDom();
   }
 
-  returnMoney() {}
+  returnMinimumCoin(charge, coins) {
+    let coinsCopy = coins.map((quantity, i) => {
+      while (charge >= COIN_ARRAY[i] && quantity > 0) {
+        charge -= COIN_ARRAY[i];
+        quantity -= 1;
+      }
+      return quantity;
+    });
+    this.model.setCharge(charge);
+
+    return coinsCopy;
+  }
+
+  returnMoney() {
+    const charge = this.model.getCharge();
+    const vendingMachine = this.model.getVending();
+    const minimumCoin = this.returnMinimumCoin(charge, vendingMachine.coins);
+    vendingMachine.coins = minimumCoin;
+    minimumCoin.forEach((quantity, i) => (vendingMachine.price -= COIN_ARRAY[i] * quantity));
+    this.model.setVending(vendingMachine);
+    this.initDom();
+  }
 }
