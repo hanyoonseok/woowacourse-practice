@@ -2,8 +2,6 @@ import { ALERT_MESSAGE } from '../constants/constants.js';
 
 export const $ = id => document.getElementById(id);
 
-export const selectAll = name => document.querySelectorAll(`.${name}`);
-
 const alertMessage = (input, message) => alert(`${input.placeholder}에 ${message}`);
 
 export const validation = {

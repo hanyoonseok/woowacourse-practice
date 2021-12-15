@@ -20,6 +20,7 @@ export default class PurchaseTab {
     this.view.clearTable(table);
     this.view.addTableHeader(table, purchaseTableHeader);
     allProducts.forEach(product => this.view.addTableRow(table, purchaseTableRow(product)));
+    this.addAllPurchaseButtonEvent();
   }
 
   addEventListeners() {
@@ -36,6 +37,25 @@ export default class PurchaseTab {
   chargeMoney() {
     const chargeInput = $(SELECTOR.chargeInput);
     this.model.addCharge(chargeInput);
+    this.initDom();
+  }
+
+  addAllPurchaseButtonEvent() {
+    const allButtons = document.querySelectorAll(`.${SELECTOR.purchaseButton}`);
+    allButtons.forEach(button =>
+      button.addEventListener('click', () => this.purchaseProduct(button.dataset.target)),
+    );
+  }
+
+  purchaseProduct(target) {
+    const allProducts = this.model.getProducts();
+    let charge = this.model.getCharge();
+    const selectedProduct = allProducts.find(e => e.name === target);
+    selectedProduct.quantity -= 1;
+    charge -= selectedProduct.price;
+    this.model.setProducts(allProducts);
+    this.model.setCharge(charge);
+    this.initTable();
     this.initDom();
   }
 

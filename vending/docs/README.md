@@ -32,6 +32,7 @@
 
 ### 6. 상품 구매 탭
 
+- localstorage 내 물품 항목들을 table에 렌더링
 - 투입하기 클릭시 충전액을 localstorage에 갱신
 - 상품 구매 시 localstorage내 상품 개수와, 충전액 갱신
 - 반환하기 클릭시 충전액을 가능한 만큼 최소한의 동전으로 반환(localstorage 갱신)
