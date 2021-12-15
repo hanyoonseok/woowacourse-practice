@@ -10,4 +10,5 @@ export const ALERT_MESSAGE = {
   isNotExistStation: '존재하지 않는 역입니다.',
   isSameWithDepartAndArrive: '출발역과 도착역이 같습니다.',
   isNotPossibleLine: '도착할 수 없는 도착지입니다',
+  isNotOver2: '역 이름을 2글자 이상으로 작성해주세요.',
 };

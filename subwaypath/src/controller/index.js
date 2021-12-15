@@ -18,7 +18,7 @@ export default class Controller {
 
   checkRadioButtonValue() {
     const radioValue = document.querySelector(`input[name=${SELECTOR.radio}]:checked`).value;
-    this.findShortest(radioValue);
+    this.findShortestByType(radioValue);
   }
   addDistanceEdges() {
     this.model.lines.forEach(line => this.dijkstra.addEdge(line.depart, line.arrive, line.cost[0]));
@@ -43,26 +43,26 @@ export default class Controller {
     if (type === 'distance') {
       this.addDistanceEdges();
       text = '최단거리';
-    } else if (type === 'time') {
+    } else if (type === 'time') {console.log('sad')
       this.addTimeEdges();
       text = '최소시간';
     }
 
     return text;
   }
-  findShortest(type) {
+  findShortestByType(type) {
     const text = this.settingByType(type);
     const depart = $(SELECTOR.departure);
     const arrive = $(SELECTOR.arrival);
     if (this.isInputValid(depart, arrive)) {
       const result = this.dijkstra.findShortestPath(depart.value, arrive.value);
-      const info = this.findInfo(result); //소요 거리, 시간 확인
+      const info = this.getResultDistAndTime(result); //소요 거리, 시간 확인
       info.type = text;
       this.view.showResult(result.join('▶'), info);
     }
   }
 
-  makePrettyResult(result) {
+  makePrettyArray(result) {
     let pretty = [];
     while (result.length >= 2) {
       pretty.push({ start: result[0], end: result[1] });
@@ -81,10 +81,10 @@ export default class Controller {
       }
     }
   }
-  findInfo(result) {
+  getResultDistAndTime(result) {
     const distAndTime = { dist: 0, time: 0 };
     const resultCopy = [...result];
-    const pretty = this.makePrettyResult(resultCopy);
+    const pretty = this.makePrettyArray(resultCopy);
 
     pretty.forEach(section => {
       this.increaseDistAndTimeByExistence(section, distAndTime);
