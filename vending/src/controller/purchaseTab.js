@@ -93,7 +93,7 @@ export default class PurchaseTab {
   returnMoney() {
     const charge = this.model.getCharge();
     const returnCoinArray = this.returnMinimumCoin(charge);
-    console.log(returnCoinArray);
     this.initDom();
+    this.view.initReturnTable(returnCoinArray);
   }
 }
