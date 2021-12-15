@@ -2,6 +2,7 @@ export const SELECTOR = {
   addMenu: 'product-add-menu',
   vendingMenu: 'vending-machine-manage-menu',
   purchaseMenu: 'product-purchase-menu',
+  container :'container',
 
   productNameInput: 'product-name-input',
   productPriceInput: 'product-price-input',
