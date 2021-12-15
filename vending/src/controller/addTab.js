@@ -20,5 +20,6 @@ export default class AddTab {
     const productPrice = $(SELECTOR.productPriceInput);
     const productQuantity = $(SELECTOR.productQuantityInput);
     const newProduct = this.model.makeProduct(productName, productPrice, productQuantity);
+    this.model.addProduct(newProduct);
   }
 }

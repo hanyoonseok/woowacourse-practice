@@ -16,4 +16,10 @@ export default class Model {
   setProducts(products) {
     return localStorage.setItem(KEY.product, JSON.stringify(products));
   }
+
+  addProduct(product) {
+    const allProducts = this.getProducts();
+    allProducts.push(product);
+    this.setProducts(allProducts);
+  }
 }
