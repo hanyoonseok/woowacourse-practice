@@ -29,9 +29,9 @@ export default class VendingTag {
   }
 
   initTable() {
-    const coins = this.model.getVending().coins;
-    if (coins) {
-      this.view.initVendingTable(coins);
+    const vending = this.model.getVending();
+    if (vending) {
+      this.view.initVendingTable(vending.coins);
     }
   }
 

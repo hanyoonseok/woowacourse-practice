@@ -73,10 +73,8 @@ export default class PurchaseTab {
   getReturnCoinByCharge(type, vendingMachine, newVendingCoins) {
     let returnCoin;
     if (type) {
-      //charge > vending -> 원래 vending coin
       returnCoin = vendingMachine.coins;
-    } else {
-      //새로운 new vending
+    } else if(type === false){
       returnCoin = vendingMachine.coins.map((quantity, i) => quantity - newVendingCoins[i]);
     }
     vendingMachine.coins = newVendingCoins;
