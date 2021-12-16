@@ -1,37 +1,37 @@
 import { $ } from './utils.js';
 import { SELECTOR } from '../constants/constants.js';
-import AddTab from './addTab.js';
-import VendingTab from './vendingTab.js';
-import PurchaseTab from './purchaseTab.js';
+import ProductManager from './productManager.js';
+import VendingManager from './vendingManager.js';
+import PurchaseManager from './purchaseManager.js';
 
 export default class Controller {
   constructor(view, model) {
     this.view = view;
     this.model = model;
-    this.addTab = new AddTab(this.view, this.model);
-    this.vendingTab = new VendingTab(this.view, this.model);
-    this.purchaseTab = new PurchaseTab(this.view, this.model);
-    this.showAddTab();
+    this.productManager = new ProductManager(this.view, this.model);
+    this.vendingManager = new VendingManager(this.view, this.model);
+    this.purchaseManager = new PurchaseManager(this.view, this.model);
+    this.renderProductManager();
   }
 
   addEventListeners() {
-    $(SELECTOR.addMenu).addEventListener('click', () => this.showAddTab());
-    $(SELECTOR.vendingMenu).addEventListener('click', () => this.showVendingTab());
-    $(SELECTOR.purchaseMenu).addEventListener('click', () => this.showPurchaseTab());
+    $(SELECTOR.addMenu).addEventListener('click', () => this.renderProductManager());
+    $(SELECTOR.vendingMenu).addEventListener('click', () => this.renderVendingManager());
+    $(SELECTOR.purchaseMenu).addEventListener('click', () => this.renderPurchaseManager());
   }
 
-  showAddTab() {
-    this.view.showAddTab();
-    this.addTab.init();
+  renderProductManager() {
+    this.view.renderProductManager();
+    this.productManager.init();
   }
 
-  showVendingTab() {
-    this.view.showVendingTab();
-    this.vendingTab.init();
+  renderVendingManager() {
+    this.view.renderVendingManager();
+    this.vendingManager.init();
   }
 
-  showPurchaseTab() {
-    this.view.showPurchaseTab();
-    this.purchaseTab.init();
+  renderPurchaseManager() {
+    this.view.renderPurchaseManager();
+    this.purchaseManager.init();
   }
 }

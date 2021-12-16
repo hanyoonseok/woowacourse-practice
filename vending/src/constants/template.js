@@ -96,7 +96,7 @@ export const purchaseTab = `
 </table>
 `;
 
-export const addTabTableRow = product => `
+export const productAddTableRow = product => `
 <tr class=${SELECTOR.productItem}>
     <td class=${SELECTOR.productName}>${product.name}</td>
     <td class=${SELECTOR.productPrice}>${product.price}</td>

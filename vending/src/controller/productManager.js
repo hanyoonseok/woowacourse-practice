@@ -1,8 +1,8 @@
 import { $, validation, onKeyUpNumericEvent } from './utils.js';
 import { SELECTOR } from '../constants/constants.js';
-import { addTabTableRow } from '../constants/template.js';
+import { productAddTableRow } from '../constants/template.js';
 
-export default class AddTab {
+export default class ProductManager {
   constructor(view, model) {
     this.view = view;
     this.model = model;
@@ -16,7 +16,7 @@ export default class AddTab {
   initTable() {
     const table = this.view.getTable();
     const allProducts = this.model.getProducts();
-    allProducts.forEach(product => this.view.addTableRow(table, addTabTableRow(product)));
+    allProducts.forEach(product => this.view.addTableRow(table, productAddTableRow(product)));
   }
 
   addEventListeners() {
@@ -74,7 +74,7 @@ export default class AddTab {
       const newProduct = this.model.makeProduct(productName, productPrice, productQuantity);
       const table = this.view.getTable();
 
-      this.view.addTableRow(table, addTabTableRow(newProduct));
+      this.view.addTableRow(table, productAddTableRow(newProduct));
       this.model.addProduct(newProduct);
       this.initInput();
     }

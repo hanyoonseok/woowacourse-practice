@@ -2,7 +2,7 @@ import { $, onKeyUpNumericEvent, validation } from './utils.js';
 import { SELECTOR, COIN_ARRAY } from '../constants/constants.js';
 import { purchaseTableHeader, purchaseTableRow } from '../constants/template.js';
 
-export default class PurchaseTab {
+export default class PurchaseManager {
   constructor(view, model) {
     this.view = view;
     this.model = model;
@@ -10,7 +10,7 @@ export default class PurchaseTab {
 
   init() {
     this.addEventListeners();
-    this.initDom();
+    this.initElements();
     this.initTable();
   }
 

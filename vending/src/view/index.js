@@ -5,7 +5,7 @@ import { SELECTOR, VENDING_COIN_X_QUANTITY, COIN_ARRAY , COIN_X_QUANTITY} from '
 export default class View {
   constructor() {
     this.$app = $('app');
-    this.showHeader();
+    this.renderHeader();
     this.setContainer();
   }
 
@@ -33,21 +33,21 @@ export default class View {
     this.$container.innerHTML = '';
   }
 
-  showHeader() {
+  renderHeader() {
     this.$app.insertAdjacentHTML('afterbegin', header);
   }
 
-  showAddTab() {
+  renderProductManager() {
     this.clearContainer();
     this.$container.insertAdjacentHTML('afterbegin', addTab);
   }
 
-  showVendingTab() {
+  renderVendingManager() {
     this.clearContainer();
     this.$container.insertAdjacentHTML('afterbegin', vendingTab);
   }
 
-  showPurchaseTab() {
+  renderPurchaseManager() {
     this.clearContainer();
     this.$container.insertAdjacentHTML('afterbegin', purchaseTab);
   }

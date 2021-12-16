@@ -1,7 +1,7 @@
 import { $, validation, onKeyUpNumericEvent } from './utils.js';
 import { SELECTOR, COIN_ARRAY } from '../constants/constants.js';
 
-export default class VendingTag {
+export default class VendingManager {
   constructor(view, model) {
     this.view = view;
     this.model = model;
@@ -9,7 +9,7 @@ export default class VendingTag {
 
   init() {
     this.addEventListeners();
-    this.initDom();
+    this.initElements();
   }
 
   addEventListeners() {
@@ -24,7 +24,7 @@ export default class VendingTag {
     if (validation.isInputNumberValid(chargeInput) && validation.isMultipleOf10(chargeInput)) {
       const randomCoinArray = this.makeRandomCoin(chargeInput.value);
       this.model.chargeVending(chargeInput.value, randomCoinArray);
-      this.initDom();
+      this.initElements();
     }
   }
 
@@ -35,7 +35,7 @@ export default class VendingTag {
     }
   }
 
-  initDom() {
+  initElements() {
     const vending = this.model.getVending();
     this.view.clearInput($(SELECTOR.vendingChargeInput));
     if (vending || vending === 0) {
