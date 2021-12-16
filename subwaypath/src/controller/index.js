@@ -43,7 +43,7 @@ export default class Controller {
     if (type === 'distance') {
       this.addDistanceEdges();
       text = '최단거리';
-    } else if (type === 'time') {console.log('sad')
+    } else if (type === 'time') {
       this.addTimeEdges();
       text = '최소시간';
     }

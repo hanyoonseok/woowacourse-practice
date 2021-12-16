@@ -1,5 +1,6 @@
 import { $, validation, onKeyUpNumericEvent } from './utils.js';
 import { SELECTOR, COIN_ARRAY } from '../constants/constants.js';
+import { vendingTableRow,vendingTableHeader } from '../constants/template.js';
 
 export default class VendingManager {
   constructor(view, model) {
@@ -13,48 +14,33 @@ export default class VendingManager {
   }
 
   addEventListeners() {
-    $(SELECTOR.vendingChargeButton).addEventListener('click', () => this.addVendingCharge());
-    $(SELECTOR.vendingChargeInput).addEventListener('keyup', () =>
-      onKeyUpNumericEvent($(SELECTOR.vendingChargeInput)),
-    );
+    $(SELECTOR.vendingChargeButton).addEventListener('click', () => this.addVendingCoin());
   }
 
-  addVendingCharge() {
-    const chargeInput = $(SELECTOR.vendingChargeInput);
-    if (validation.isInputNumberValid(chargeInput) && validation.isMultipleOf10(chargeInput)) {
-      const randomCoinArray = this.makeRandomCoinArray(chargeInput.value);
-      this.model.chargeVending(chargeInput.value, randomCoinArray);
-      this.initElements();
-    }
+  addVendingCoin() {
+    const price = $(SELECTOR.vendingChargePrice);
+    const quantity = $(SELECTOR.vendingChargeQuantity);
+    this.model.addCoin(price.value, quantity.value);
+    this.initElements();
   }
 
   initTable() {
     const vending = this.model.getVending();
+    const table = this.view.getTable();
     if (vending) {
-      this.view.initVendingTable(vending.coins);
+      this.view.clearTable(table);
+      this.view.addTableHeader(table, vendingTableHeader);
+      vending.coins.forEach(coin => this.view.addTableRow(table, vendingTableRow(coin)))
     }
   }
 
   initElements() {
     const vending = this.model.getVending();
-    this.view.clearInput($(SELECTOR.vendingChargeInput));
-    if (vending || vending === 0) {
-      this.view.setInnerHTML($(SELECTOR.vendingChargeAmount), this.model.getVending().price);
+    if (vending || vending.total === 0) {
+      this.view.setInnerHTML($(SELECTOR.vendingChargeAmount), this.model.getVending().total);
     }
+    this.view.clearInput($(SELECTOR.vendingChargePrice));
+    this.view.clearInput($(SELECTOR.vendingChargeQuantity));
     this.initTable();
-  }
-
-  makeRandomCoinArray(chargeInputValue) {
-    let totalPrice = 0;
-    let randomCoinArray = COIN_ARRAY.map(x => x * 0);
-    while (totalPrice < chargeInputValue) {
-      const random = MissionUtils.Random.pickNumberInList(COIN_ARRAY);
-      if (totalPrice + random <= chargeInputValue) {
-        totalPrice += random;
-        randomCoinArray[COIN_ARRAY.indexOf(random)] += 1;
-      }
-    }
-
-    return randomCoinArray;
   }
 }

@@ -29,31 +29,14 @@ export const addTab = `
 
 export const vendingTab = `
 <h2>자판기 동전 충전하기</h2>
-<input type="number" id=${SELECTOR.vendingChargeInput} placeholder="자판기가 보유할 금액"/>
+<input type="number" id=${SELECTOR.vendingChargePrice} placeholder="동전 단위"/>
+<input type="number" id=${SELECTOR.vendingChargeQuantity} placeholder="개수"/>
 <button id=${SELECTOR.vendingChargeButton}>충전하기</button>
 <div>보유 금액: <span id=${SELECTOR.vendingChargeAmount}></span></div>
 
 <h2>자판기가 보유한 동전</h2>
 <table border="1">
 <tbody>
-<th>동전</th>
-<th>개수</th>
-<tr>
-<td>500원</td>
-<td id=${SELECTOR.vendingCoin500Quantity}></td>
-</tr>
-<tr>
-<td>100원</td>
-<td id=${SELECTOR.vendingCoin100Quantity}></td>
-</tr>
-<tr>
-<td>50원</td>
-<td id=${SELECTOR.vendingCoin50Quantity}></td>
-</tr>
-<tr>
-<td>10원</td>
-<td id=${SELECTOR.vendingCoin10Quantity}></td>
-</tr>
 </tbody>
 </table>
 `;
@@ -119,3 +102,14 @@ export const purchaseTableRow = item => `
     <td><button class=${SELECTOR.purchaseButton} data-target=${item.name}>구매하기</button></td>
 </tr>
 `;
+
+export const vendingTableHeader = `
+<th>동전</th>
+<th>개수</th>
+`
+export const vendingTableRow = coin => `
+<tr>
+    <td>${coin.price}원</td>
+    <td>${coin.quantity}개</td>
+</tr>
+`

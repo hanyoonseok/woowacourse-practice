@@ -31,22 +31,29 @@ export default class Model {
     localStorage.setItem(KEY.vending, JSON.stringify(vending));
   }
 
-  chargeVending(inputValue, randomCoinArray) {
+  addCoin(priceValue, quantityValue) {
     let vendingMachine = this.getVending();
-    if (vendingMachine || vendingMachine === 0) {
-      const newCoinArray = vendingMachine.coins.map((coin, i) => (coin += randomCoinArray[i]));
-      vendingMachine.price += parseInt(inputValue);
-      vendingMachine.coins = newCoinArray;
+    if (vendingMachine) {
+      let selectedCoin = vendingMachine.coins.find(e => e.price === parseInt(priceValue));
+      if (selectedCoin) {
+        selectedCoin.quantity += parseInt(quantityValue);
+      } else {
+        vendingMachine.coins.push({
+          price: parseInt(priceValue),
+          quantity: parseInt(quantityValue),
+        });
+      }
+      vendingMachine.total += parseInt(priceValue) * parseInt(quantityValue);
     } else if (vendingMachine === null) {
-      vendingMachine = this.makeVending(parseInt(inputValue), randomCoinArray);
+      vendingMachine = this.makeVending(parseInt(priceValue), parseInt(quantityValue));
     }
     this.setVending(vendingMachine);
   }
 
-  makeVending(inputValue, randomCoinArray) {
+  makeVending(price, quantity) {
     return {
-      price: parseInt(inputValue),
-      coins: randomCoinArray,
+      total: price,
+      coins: [{ price, quantity }],
     };
   }
 

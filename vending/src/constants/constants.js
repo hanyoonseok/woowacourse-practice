@@ -13,7 +13,8 @@ export const SELECTOR = {
   productPrice: 'product-manage-price',
   productQuantity: 'product-manage-quantity',
 
-  vendingChargeInput: 'vending-machine-charge-input',
+  vendingChargePrice: 'vending-machine-charge-price',
+  vendingChargeQuantity: 'vending-machine-charge-quantity',
   vendingChargeButton: 'vending-machine-charge-button',
   vendingChargeAmount: 'vending-machine-charge-amount',
   vendingCoin500Quantity: 'vending-machine-coin-500-quantity',
