@@ -22,6 +22,14 @@ export default class Controller {
     );
   }
 
+  renderResult(resultMessage) {
+    this.view.renderResult(resultMessage);
+    if (this.model.getStrike() === 3) {
+      this.view.renderRestart();
+      this.addRestartEvent();
+    }
+  }
+
   playGame(e) {
     e.preventDefault();
     const userInput = $(SELECTOR.userInput).value;
@@ -32,14 +40,10 @@ export default class Controller {
         this.model.getRandomNumber(),
         this.model.getUserInput(),
       );
-      this.view.renderResult(resultMessage);
-      if (this.model.getStrike() === 3) {
-        this.view.renderRestart();
-        this.addRestartEvent();
-      }
-    } else {
-      this.view.clearInput($(SELECTOR.userInput));
+      this.renderResult(resultMessage);
+      return;
     }
+    this.view.clearInput($(SELECTOR.userInput));
   }
 
   increaseBallAndStrike(randomNumber, userInput) {
@@ -52,11 +56,7 @@ export default class Controller {
     });
   }
 
-  makeResultMessage(randomNumber, userInput) {
-    console.log(randomNumber, userInput);
-    let message = '';
-    this.increaseBallAndStrike(randomNumber, userInput);
-    console.log(this.model.getStrike(), this.model.getBall());
+  makeMessage(message) {
     if (this.model.getStrike() > 0) {
       message += `${this.model.getStrike()}스트라이크 `;
     }
@@ -65,12 +65,18 @@ export default class Controller {
     }
     if (this.model.getStrike() === 3) {
       message = '축하합니다. 정답을 맞추셨습니다.';
-    }
-    if (this.model.getBall() === 0 && this.model.getStrike() === 0) {
+    } else if (this.model.getBall() === 0 && this.model.getStrike() === 0) {
       message = '낫싱';
     }
-    console.log(message);
+
     return message;
+  }
+
+  makeResultMessage(randomNumber, userInput) {
+    let message = '';
+    this.increaseBallAndStrike(randomNumber, userInput);
+
+    return this.makeMessage(message);
   }
 
   addRestartEvent() {

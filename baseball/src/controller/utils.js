@@ -1,3 +1,5 @@
+import { ALERT_MESSAGE } from '../constants/constants.js';
+
 export const $ = id => document.getElementById(id);
 
 export const validation = {
@@ -6,18 +8,17 @@ export const validation = {
     for (let i = 0; i < input.length; i += 1) {
       if (isNaN(input[i])) {
         isNumber = false;
-        alert('숫자가 아닌 문자가 포함되어 있습니다.');
+        alert(ALERT_MESSAGE.isNumeric);
       }
     }
 
-    console.log(isNumber);
     return isNumber;
   },
   isBlankExist(input) {
     let isExist = false;
     if (input.includes(' ')) {
       isExist = true;
-      alert('공백이 포함되어있습니다.');
+      alert(ALERT_MESSAGE.isBlankExist);
     }
 
     return isExist;
@@ -26,7 +27,7 @@ export const validation = {
   isRightLength(input) {
     const isRight = input.length === 3;
     if (!isRight) {
-      alert('길이가 3인 숫자를 입력해주세요');
+      alert(ALERT_MESSAGE.isRightLength);
     }
 
     return isRight;
@@ -37,8 +38,9 @@ export const validation = {
     const set = new Set([...array]);
     const isDup = array.length !== set.size;
     if (isDup) {
-      alert('중복된 숫자가 존재합니다');
+      alert(ALERT_MESSAGE.isDuplicated);
     }
+
     return isDup;
   },
 };
