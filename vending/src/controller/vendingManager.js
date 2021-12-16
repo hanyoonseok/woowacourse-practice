@@ -22,7 +22,7 @@ export default class VendingManager {
   addVendingCharge() {
     const chargeInput = $(SELECTOR.vendingChargeInput);
     if (validation.isInputNumberValid(chargeInput) && validation.isMultipleOf10(chargeInput)) {
-      const randomCoinArray = this.makeRandomCoin(chargeInput.value);
+      const randomCoinArray = this.makeRandomCoinArray(chargeInput.value);
       this.model.chargeVending(chargeInput.value, randomCoinArray);
       this.initElements();
     }
@@ -44,7 +44,7 @@ export default class VendingManager {
     this.initTable();
   }
 
-  makeRandomCoin(chargeInputValue) {
+  makeRandomCoinArray(chargeInputValue) {
     let totalPrice = 0;
     let randomCoinArray = COIN_ARRAY.map(x => x * 0);
     while (totalPrice < chargeInputValue) {

@@ -52,6 +52,7 @@ export const validation = {
 
   isInputNumberValid(input) {
     const isValid = this.isPositiveNumber(input) && !this.isBlankExist(input);
+    
     return isValid;
   },
 };
