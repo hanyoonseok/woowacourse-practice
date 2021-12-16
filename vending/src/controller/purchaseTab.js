@@ -57,24 +57,25 @@ export default class PurchaseTab {
   }
 
   purchaseProduct(target) {
-    const allProducts = this.model.getProducts();
+    let allProducts = this.model.getProducts();
     let charge = this.model.getCharge();
     const selectedProduct = allProducts.find(e => e.name === target);
-    if (selectedProduct.quantity >= 1) {
-      selectedProduct.quantity -= 1;
-      charge -= selectedProduct.price;
-      this.model.setProducts(allProducts);
-      this.model.setCharge(charge);
-      this.initTable();
-      this.initDom();
+    selectedProduct.quantity -= 1;
+    charge -= selectedProduct.price;
+    if(selectedProduct.quantity===0){
+      allProducts = allProducts.filter(e => e.name !== selectedProduct.name)
     }
+    this.model.setProducts(allProducts);
+    this.model.setCharge(charge);
+    this.initTable();
+    this.initDom();
   }
 
   getReturnCoinByCharge(type, vendingMachine, newVendingCoins) {
     let returnCoin;
     if (type) {
       returnCoin = vendingMachine.coins;
-    } else if(type === false){
+    } else if (type === false) {
       returnCoin = vendingMachine.coins.map((quantity, i) => quantity - newVendingCoins[i]);
     }
     vendingMachine.coins = newVendingCoins;

@@ -21,7 +21,7 @@ export default class VendingTag {
 
   addVendingCharge() {
     const chargeInput = $(SELECTOR.vendingChargeInput);
-    if (validation.isInputNumberValid(chargeInput)) {
+    if (validation.isInputNumberValid(chargeInput) && validation.isMultipleOf10(chargeInput)) {
       const randomCoinArray = this.makeRandomCoin(chargeInput.value);
       this.model.chargeVending(chargeInput.value, randomCoinArray);
       this.initDom();
