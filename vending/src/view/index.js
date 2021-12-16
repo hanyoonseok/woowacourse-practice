@@ -1,6 +1,11 @@
 import { $ } from '../controller/utils.js';
 import { header, addTab, vendingTab, purchaseTab } from '../constants/template.js';
-import { SELECTOR, VENDING_COIN_X_QUANTITY, COIN_ARRAY , COIN_X_QUANTITY} from '../constants/constants.js';
+import {
+  SELECTOR,
+  VENDING_COIN_X_QUANTITY,
+  COIN_ARRAY,
+  COIN_X_QUANTITY,
+} from '../constants/constants.js';
 
 export default class View {
   constructor() {
@@ -64,7 +69,9 @@ export default class View {
     coins.forEach((coin, i) => ($(VENDING_COIN_X_QUANTITY(COIN_ARRAY[i])).innerHTML = `${coin}개`));
   }
 
-  initReturnTable(coins){
-      coins.forEach((coin, i) => ($(COIN_X_QUANTITY(COIN_ARRAY[i])).innerHTML = `${coin}개`))
+  initReturnTable(coins) {
+    coins.forEach(
+      coin => $(`return-coin-${coin.price}-quantity`).innerHTML = `${coin.quantity}개`,
+    );
   }
 }

@@ -1,6 +1,11 @@
 import { $, onKeyUpNumericEvent, validation } from './utils.js';
 import { SELECTOR, COIN_ARRAY } from '../constants/constants.js';
-import { purchaseTableHeader, purchaseTableRow } from '../constants/template.js';
+import {
+  purchaseTableHeader,
+  purchaseTableRow,
+  vendingTableHeader,
+  purchaseReturnTableRow,
+} from '../constants/template.js';
 
 export default class PurchaseManager {
   constructor(view, model) {
@@ -12,6 +17,7 @@ export default class PurchaseManager {
     this.addEventListeners();
     this.initElements();
     this.initTable();
+    this.initReturnTable();
   }
 
   initTable() {
@@ -100,10 +106,44 @@ export default class PurchaseManager {
     return this.getReturnCoinByCharge(type, vendingMachine, newVendingCoins);
   }
 
+  returnMinimumCoin2(charge) {
+    const vendingMachine = this.model.getVending();
+    let minimumCoinArray;
+    if (charge > vendingMachine.total) {
+      minimumCoinArray = vendingMachine.coins;
+    } else {
+      minimumCoinArray = vendingMachine.coins.map(coin => {
+        let i = 0;
+        while (charge >= coin.price && coin.quantity > 0) {
+          charge -= coin.price;
+          coin.quantity -= 1;
+          vendingMachine.total -= coin.price;
+          i += 1;
+        }
+        return { price: coin.price, quantity: i };
+      });
+    }
+    this.model.setCharge(charge)
+    this.model.setVending(vendingMachine)
+
+    return minimumCoinArray;
+  }
+
   returnMoney() {
     const charge = this.model.getCharge();
-    const returnCoinArray = this.returnMinimumCoin(charge);
+    const returnCoinArray = this.returnMinimumCoin2(charge);
+    console.log(returnCoinArray);
     this.initElements();
     this.view.initReturnTable(returnCoinArray);
+  }
+
+  initReturnTable() {
+    const table = document.querySelectorAll('tbody')[1];
+    const vending = this.model.getVending();
+    if (vending) {
+      this.view.clearTable(table);
+      this.view.addTableHeader(table, vendingTableHeader);
+      vending.coins.forEach(coin => this.view.addTableRow(table, purchaseReturnTableRow(coin)));
+    }
   }
 }

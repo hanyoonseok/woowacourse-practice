@@ -57,24 +57,6 @@ export const purchaseTab = `
 <button id=${SELECTOR.returnButton}>반환하기</button>
 <table border="1">
 <tbody>
-    <th>동전</th>
-    <th>개수</th>
-    <tr>
-        <td>500원</td>
-        <td id=${SELECTOR.coin500Quantity}></td>
-    </tr>
-    <tr>
-        <td>100원</td>
-        <td id=${SELECTOR.coin100Quantity}></td>
-    </tr>
-    <tr>
-        <td>50원</td>
-        <td id=${SELECTOR.coin50Quantity}></td>
-    </tr>
-    <tr>
-        <td>10원</td>
-        <td id=${SELECTOR.coin10Quantity}></td>
-    </tr>
 </tbody>
 </table>
 `;
@@ -106,10 +88,17 @@ export const purchaseTableRow = item => `
 export const vendingTableHeader = `
 <th>동전</th>
 <th>개수</th>
-`
+`;
 export const vendingTableRow = coin => `
 <tr>
     <td>${coin.price}원</td>
     <td>${coin.quantity}개</td>
 </tr>
-`
+`;
+
+export const purchaseReturnTableRow = coin => `
+<tr>
+    <td class=return-coin-${coin.price}-price>${coin.price}원</td>
+    <td id=return-coin-${coin.price}-quantity></td>
+</tr>
+`;

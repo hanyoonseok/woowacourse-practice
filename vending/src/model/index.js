@@ -28,6 +28,7 @@ export default class Model {
   }
 
   setVending(vending) {
+    vending.coins.sort((a,b) => b.price - a.price)
     localStorage.setItem(KEY.vending, JSON.stringify(vending));
   }
 
