@@ -16,7 +16,6 @@ export default class Controller {
   }
 
   isCarNamesInputValid(carNamesInputArray) {
-    console.log(carNamesInputArray);
     return (
       validation.isNameInLength(carNamesInputArray) &&
       !validation.isDuplicatedNameExist(carNamesInputArray) &&
@@ -87,7 +86,6 @@ export default class Controller {
   showWinner() {
     this.model.sortArrayForWinner();
     const winnerArray = this.model.getWinner();
-    console.log(winnerArray)
     this.view.showWinner(winnerArray);
   }
 }
