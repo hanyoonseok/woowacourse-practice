@@ -11,15 +11,18 @@ export default class Controller {
     $(SELECTOR.carNameSubmit).addEventListener('click', e => this.setCarList(e));
   }
 
-  isCarNamesInputValid(carNamesInputValue){
-     
+  isCarNamesInputValid(carNamesInputArray) {
+    return (
+      validation.isNameInLength(carNamesInputArray) &&
+      !validation.isDuplicatedNameExist(carNamesInputArray) &&
+      !validation.isBlankExist(carNamesInputArray)
+    );
   }
 
   setCarList(e) {
     e.preventDefault();
-    const carNamesInput = $(SELECTOR.carNameInput);
-    if (this.isCarNamesInputValid(carNamesInput.value)) {
-        
+    const carNamesInputArray = $(SELECTOR.carNameInput).value.split(',');
+    if (this.isCarNamesInputValid(carNamesInputArray)) {
     }
   }
 }
