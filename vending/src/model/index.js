@@ -28,22 +28,26 @@ export default class Model {
   }
 
   setVending(vending) {
-    vending.coins.sort((a,b) => b.price - a.price)
+    vending.coins.sort((a, b) => b.price - a.price);
     localStorage.setItem(KEY.vending, JSON.stringify(vending));
+  }
+
+  addCoinByExistence(vendingMachine, priceValue, quantityValue) {
+    let selectedCoin = vendingMachine.coins.find(e => e.price === parseInt(priceValue));
+    if (selectedCoin) {
+      selectedCoin.quantity += parseInt(quantityValue);
+    } else {
+      vendingMachine.coins.push({
+        price: parseInt(priceValue),
+        quantity: parseInt(quantityValue),
+      });
+    }
   }
 
   addCoin(priceValue, quantityValue) {
     let vendingMachine = this.getVending();
     if (vendingMachine) {
-      let selectedCoin = vendingMachine.coins.find(e => e.price === parseInt(priceValue));
-      if (selectedCoin) {
-        selectedCoin.quantity += parseInt(quantityValue);
-      } else {
-        vendingMachine.coins.push({
-          price: parseInt(priceValue),
-          quantity: parseInt(quantityValue),
-        });
-      }
+      this.addCoinByExistence(vendingMachine, priceValue, quantityValue);
       vendingMachine.total += parseInt(priceValue) * parseInt(quantityValue);
     } else if (vendingMachine === null) {
       vendingMachine = this.makeVending(parseInt(priceValue), parseInt(quantityValue));
@@ -53,7 +57,7 @@ export default class Model {
 
   makeVending(price, quantity) {
     return {
-      total: price,
+      total: price * quantity,
       coins: [{ price, quantity }],
     };
   }

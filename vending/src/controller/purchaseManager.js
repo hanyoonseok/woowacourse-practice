@@ -66,15 +66,17 @@ export default class PurchaseManager {
     let allProducts = this.model.getProducts();
     const selectedProduct = allProducts.find(e => e.name === target);
     let charge = this.model.getCharge();
-    selectedProduct.quantity -= 1;
-    charge -= selectedProduct.price;
-    if (selectedProduct.quantity === 0) {
-      allProducts = allProducts.filter(e => e.name !== selectedProduct.name);
+    if (charge >= selectedProduct.price) {
+      selectedProduct.quantity -= 1;
+      charge -= selectedProduct.price;
+      if (selectedProduct.quantity === 0) {
+        allProducts = allProducts.filter(e => e.name !== selectedProduct.name);
+      }
+      this.model.setProducts(allProducts);
+      this.model.setCharge(charge);
+      this.initTable();
+      this.initElements();
     }
-    this.model.setProducts(allProducts);
-    this.model.setCharge(charge);
-    this.initTable();
-    this.initElements();
   }
 
   getReturnCoinByCharge(type, vendingMachine, newVendingCoins) {
@@ -123,8 +125,8 @@ export default class PurchaseManager {
         return { price: coin.price, quantity: i };
       });
     }
-    this.model.setCharge(charge)
-    this.model.setVending(vendingMachine)
+    this.model.setCharge(charge);
+    this.model.setVending(vendingMachine);
 
     return minimumCoinArray;
   }

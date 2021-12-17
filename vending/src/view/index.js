@@ -4,7 +4,7 @@ import {
   SELECTOR,
   VENDING_COIN_X_QUANTITY,
   COIN_ARRAY,
-  COIN_X_QUANTITY,
+  RETURN_COIN_X_QUANTITY,
 } from '../constants/constants.js';
 
 export default class View {
@@ -71,7 +71,7 @@ export default class View {
 
   initReturnTable(coins) {
     coins.forEach(
-      coin => $(`return-coin-${coin.price}-quantity`).innerHTML = `${coin.quantity}개`,
+      coin => $(RETURN_COIN_X_QUANTITY(coin.price)).innerHTML = `${coin.quantity}개`,
     );
   }
 }
