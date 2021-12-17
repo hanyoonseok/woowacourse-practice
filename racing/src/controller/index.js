@@ -23,6 +23,7 @@ export default class Controller {
     e.preventDefault();
     const carNamesInputArray = $(SELECTOR.carNameInput).value.split(',');
     if (this.isCarNamesInputValid(carNamesInputArray)) {
+      this.model.setCarObjectArray(carNamesInputArray);
     }
   }
 }

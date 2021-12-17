@@ -7,7 +7,11 @@ export class Car {
 
 export default class Model {
   constructor() {
-    this.carNamesArray = [];
+    this.carObjectArray = [];
     this.racingCount = 0;
+  }
+  setCarObjectArray(array) {
+    this.carObjectArray = array.map(name => new Car(name));
+    console.log(this.carObjectArray)
   }
 }
