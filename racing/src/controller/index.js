@@ -1,4 +1,4 @@
-import { $, validation } from './utils.js';
+import { $, validation, onKeyUpNumericEvent } from './utils.js';
 import { SELECTOR } from '../constants/index.js';
 
 export default class Controller {
@@ -9,6 +9,10 @@ export default class Controller {
   }
   addEventListeners() {
     $(SELECTOR.carNameSubmit).addEventListener('click', e => this.setCarList(e));
+    $(SELECTOR.racingCountSubmit).addEventListener('click', e => this.setRacingCount(e));
+    $(SELECTOR.racingCountInput).addEventListener('keyup', () =>
+      onKeyUpNumericEvent($(SELECTOR.racingCountInput)),
+    );
   }
 
   isCarNamesInputValid(carNamesInputArray) {
@@ -24,6 +28,17 @@ export default class Controller {
     const carNamesInputArray = $(SELECTOR.carNameInput).value.split(',');
     if (this.isCarNamesInputValid(carNamesInputArray)) {
       this.model.setCarObjectArray(carNamesInputArray);
+    }
+  }
+
+  isRacingCountValid(racingCount) {
+      return validation.isPositiveNumber(racingCount) && !validation.isBlankExist(racingCount);
+  }
+
+  setRacingCount(e) {
+    e.preventDefault();
+    const racingCount = $(SELECTOR.racingCountInput).value;
+    if (this.isRacingCountValid(racingCount)) {
     }
   }
 }

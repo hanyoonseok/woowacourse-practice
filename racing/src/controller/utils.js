@@ -14,7 +14,7 @@ export const validation = {
 
     return isInLength;
   },
-  isBlankExist(carNamesInputArray) {
+  isBlankExistInArray(carNamesInputArray) {
     let isExist = false;
     carNamesInputArray.forEach(name => {
       if (name === '' || name.includes(' ')) {
@@ -22,6 +22,15 @@ export const validation = {
         alert(ALERT_MESSAGE.blankExist);
       }
     });
+
+    return isExist;
+  },
+
+  isBlankExist(racingCount) {
+    let isExist = racingCount === '' || racingCount.includes(' ');
+    if (isExist) {
+      alert(ALERT_MESSAGE.blankExist);
+    }
 
     return isExist;
   },
@@ -35,4 +44,15 @@ export const validation = {
 
     return isDuplicated;
   },
+
+  isPositiveNumber(racingCount) {
+    const isPositive = parseInt(racingCount) > 0;
+    if (!isPositive) {
+      alert(ALERT_MESSAGE.notPositiveNumber);
+    }
+
+    return isPositive;
+  },
 };
+
+export const onKeyUpNumericEvent = input => (input.value = input.value.replace(/[^0-9]/g, ''));

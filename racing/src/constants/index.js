@@ -18,5 +18,4 @@ export const ALERT_MESSAGE = {
   blankExist: '공백을 제거해주세요.',
   duplicatedName: '중복된 자동차 이름이 있습니다.',
   notPositiveNumber: '1이상의 자연수를 입력해주세요.',
-  notNumeric: '숫자가 아닌 문자가 포함되어있습니다.',
 };
