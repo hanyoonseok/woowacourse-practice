@@ -1,3 +1,5 @@
+import { GAME_RULE } from '../constants/constants.js';
+
 export default class Model {
   constructor() {
     this.randomNumber = this.makeRandomNumber();
@@ -8,8 +10,11 @@ export default class Model {
 
   makeRandomNumber() {
     let randomNumberArray = [];
-    while (randomNumberArray.length < 3) {
-      const randomNumber = MissionUtils.Random.pickNumberInRange(1, 9);
+    while (randomNumberArray.length < GAME_RULE.numberLength) {
+      const randomNumber = MissionUtils.Random.pickNumberInRange(
+        GAME_RULE.minRange,
+        GAME_RULE.maxRange,
+      );
       if (!randomNumberArray.includes(randomNumber)) {
         randomNumberArray.push(randomNumber);
       }
@@ -47,13 +52,13 @@ export default class Model {
   }
 
   clearBallAndStrike() {
-    this.ball = 0;
-    this.strike = 0;
+    this.ball = GAME_RULE.nothingCount;
+    this.strike = GAME_RULE.nothingCount;
   }
 
   clearAllInfo() {
-    this.ball = 0;
-    this.strike = 0;
+    this.ball = GAME_RULE.nothingCount;
+    this.strike = GAME_RULE.nothingCount;
     this.randomNumber = this.makeRandomNumber();
     this.userInput = [];
   }

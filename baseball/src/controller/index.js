@@ -1,5 +1,5 @@
 import { $, validation } from './utils.js';
-import { SELECTOR } from '../constants/constants.js';
+import { SELECTOR, GAME_RULE } from '../constants/constants.js';
 
 export default class Controller {
   constructor(view, model, baseball) {
@@ -24,7 +24,7 @@ export default class Controller {
 
   renderResult(resultMessage) {
     this.view.renderResult(resultMessage);
-    if (this.model.getStrike() === 3) {
+    if (this.model.getStrike() === GAME_RULE.clearCount) {
       this.view.renderRestart();
       this.addRestartEvent();
     }
@@ -57,15 +57,18 @@ export default class Controller {
   }
 
   makeMessage(message) {
-    if (this.model.getStrike() > 0) {
+    if (this.model.getStrike() > GAME_RULE.nothingCount) {
       message += `${this.model.getStrike()}스트라이크 `;
     }
-    if (this.model.getBall() > 0) {
+    if (this.model.getBall() > GAME_RULE.nothingCount) {
       message += `${this.model.getBall()}볼`;
     }
-    if (this.model.getStrike() === 3) {
+    if (this.model.getStrike() === GAME_RULE.clearCount) {
       message = '축하합니다. 정답을 맞추셨습니다.';
-    } else if (this.model.getBall() === 0 && this.model.getStrike() === 0) {
+    } else if (
+      this.model.getBall() === GAME_RULE.nothingCount &&
+      this.model.getStrike() === GAME_RULE.nothingCount
+    ) {
       message = '낫싱';
     }
 
