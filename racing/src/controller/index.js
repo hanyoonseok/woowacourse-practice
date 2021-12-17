@@ -23,11 +23,19 @@ export default class Controller {
     );
   }
 
+  changeElementsDisabled() {
+    this.view.unblockElement($(SELECTOR.racingCountInput));
+    this.view.unblockElement($(SELECTOR.racingCountSubmit));
+    this.view.blockElement($(SELECTOR.carNameInput));
+    this.view.blockElement($(SELECTOR.carNameSubmit));
+  }
+
   setCarList(e) {
     e.preventDefault();
     const carNamesInputArray = $(SELECTOR.carNameInput).value.split(',');
     if (this.isCarNamesInputValid(carNamesInputArray)) {
       this.model.setCarObjectArray(carNamesInputArray);
+      this.changeElementsDisabled();
     }
   }
 
@@ -44,17 +52,23 @@ export default class Controller {
     }
   }
 
+  blockRacingElements() {
+    this.view.blockElement($(SELECTOR.racingCountInput));
+    this.view.blockElement($(SELECTOR.racingCountSubmit));
+  }
+
   playRacing() {
     let i;
     for (i = 0; i < this.model.racingCount; i += 1) {
       this.increaseMoveByRandom();
       this.view.showResult(this.model.getCarObjectArray());
     }
+    this.blockRacingElements();
+    this.showWinner();
   }
 
   increaseMoveByRandom() {
     const carObjectArray = this.model.getCarObjectArray();
-    console.log(carObjectArray);
     carObjectArray.forEach(car => {
       if (this.makeRandomNumber() >= GAME_RULE.moveCondition) {
         car.move += 1;
@@ -67,5 +81,11 @@ export default class Controller {
       GAME_RULE.randomMinRange,
       GAME_RULE.randomMaxRange,
     );
+  }
+
+  showWinner() {
+    this.model.sortArrayForWinner();
+    const winnerArray = this.model.getWinner();
+    this.view.showWinner(winnerArray)
   }
 }
