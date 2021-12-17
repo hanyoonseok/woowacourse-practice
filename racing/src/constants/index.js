@@ -4,6 +4,7 @@ export const SELECTOR = {
   racingCountInput: 'racing-count-input',
   racingCountSubmit: 'racing-count-submit',
   racingWinner: 'racing-winners',
+  $app:'app',
 };
 
 export const GAME_RULE = {

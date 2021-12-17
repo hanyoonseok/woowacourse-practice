@@ -1,5 +1,5 @@
 import { $, validation, onKeyUpNumericEvent } from './utils.js';
-import { SELECTOR } from '../constants/index.js';
+import { SELECTOR, GAME_RULE } from '../constants/index.js';
 
 export default class Controller {
   constructor(view, model) {
@@ -32,13 +32,40 @@ export default class Controller {
   }
 
   isRacingCountValid(racingCount) {
-      return validation.isPositiveNumber(racingCount) && !validation.isBlankExist(racingCount);
+    return validation.isPositiveNumber(racingCount) && !validation.isBlankExist(racingCount);
   }
 
   setRacingCount(e) {
     e.preventDefault();
     const racingCount = $(SELECTOR.racingCountInput).value;
     if (this.isRacingCountValid(racingCount)) {
+      this.model.setRacingCount(racingCount);
+      this.playRacing();
     }
+  }
+
+  playRacing() {
+    let i;
+    for (i = 0; i < this.model.racingCount; i += 1) {
+      this.increaseMoveByRandom();
+      this.view.showResult(this.model.getCarObjectArray());
+    }
+  }
+
+  increaseMoveByRandom() {
+    const carObjectArray = this.model.getCarObjectArray();
+    console.log(carObjectArray);
+    carObjectArray.forEach(car => {
+      if (this.makeRandomNumber() >= GAME_RULE.moveCondition) {
+        car.move += 1;
+      }
+    });
+  }
+
+  makeRandomNumber() {
+    return MissionUtils.Random.pickNumberInRange(
+      GAME_RULE.randomMinRange,
+      GAME_RULE.randomMaxRange,
+    );
   }
 }

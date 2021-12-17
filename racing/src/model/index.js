@@ -12,6 +12,11 @@ export default class Model {
   }
   setCarObjectArray(array) {
     this.carObjectArray = array.map(name => new Car(name));
-    console.log(this.carObjectArray)
+  }
+  getCarObjectArray(){
+      return this.carObjectArray;
+  }
+  setRacingCount(racingCount) {
+    this.racingCount = parseInt(racingCount);
   }
 }
