@@ -24,8 +24,9 @@ export default class Model {
   }
   getWinner() {
     const highestMove = this.carObjectArray[0].move;
-    return this.carObjectArray.map(car => {
-      if (car.move === highestMove) return car.name;
-    });
+    const winnerObjectArray = this.carObjectArray.filter(car => car.move === highestMove);
+    console.log(winnerObjectArray)
+
+    return winnerObjectArray.map(obj => obj.name);
   }
 }

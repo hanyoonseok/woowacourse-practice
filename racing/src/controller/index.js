@@ -16,10 +16,11 @@ export default class Controller {
   }
 
   isCarNamesInputValid(carNamesInputArray) {
+    console.log(carNamesInputArray);
     return (
       validation.isNameInLength(carNamesInputArray) &&
       !validation.isDuplicatedNameExist(carNamesInputArray) &&
-      !validation.isBlankExist(carNamesInputArray)
+      !validation.isBlankExistInArray(carNamesInputArray)
     );
   }
 
@@ -40,7 +41,7 @@ export default class Controller {
   }
 
   isRacingCountValid(racingCount) {
-    return validation.isPositiveNumber(racingCount) && !validation.isBlankExist(racingCount);
+    return !validation.isBlankExist(racingCount) && validation.isPositiveNumber(racingCount);
   }
 
   setRacingCount(e) {
@@ -86,6 +87,7 @@ export default class Controller {
   showWinner() {
     this.model.sortArrayForWinner();
     const winnerArray = this.model.getWinner();
-    this.view.showWinner(winnerArray)
+    console.log(winnerArray)
+    this.view.showWinner(winnerArray);
   }
 }
