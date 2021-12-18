@@ -52,8 +52,25 @@ export const validation = {
 
   isInputNumberValid(input) {
     const isValid = this.isPositiveNumber(input) && !this.isBlankExist(input);
-    
+
     return isValid;
+  },
+
+  isProductInfoValid(allProductsName, productName, productPrice, productQuantity) {
+    return (
+      !this.isBlankExist(productName) &&
+      !this.isDuplicated(allProductsName, productName) &&
+      !this.isBlankExist(productPrice) &&
+      this.isPositiveNumber(productPrice) &&
+      this.isBiggerThan100(productPrice) &&
+      this.isMultipleOf10(productPrice) &&
+      !this.isBlankExist(productQuantity) &&
+      this.isPositiveNumber(productQuantity)
+    );
+  },
+
+  isChargeInputValid(chargeInput) {
+    return this.isInputNumberValid(chargeInput) && this.isMultipleOf10(chargeInput);
   },
 };
 

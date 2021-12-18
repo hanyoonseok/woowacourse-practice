@@ -43,13 +43,9 @@ export default class PurchaseManager {
     this.view.setInnerHTML($(SELECTOR.chargeAmount), chargeAmount);
   }
 
-  isChargeInputValid(chargeInput) {
-    return validation.isInputNumberValid(chargeInput) && validation.isMultipleOf10(chargeInput);
-  }
-
   chargeMoney() {
     const chargeInput = $(SELECTOR.chargeInput);
-    if (this.isChargeInputValid(chargeInput)) {
+    if (validation.isChargeInputValid(chargeInput)) {
       this.model.addCharge(chargeInput);
       this.initElements();
     }
@@ -134,7 +130,6 @@ export default class PurchaseManager {
   returnMoney() {
     const charge = this.model.getCharge();
     const returnCoinArray = this.returnMinimumCoin2(charge);
-    console.log(returnCoinArray);
     this.initElements();
     this.view.initReturnTable(returnCoinArray);
   }
