@@ -5,8 +5,16 @@ export default class Controller {
   constructor(view, model) {
     this.view = view;
     this.model = model;
+    this.asd = asd;
     this.$container = $(SELECTOR.container);
   }
 
-  addEventListeners() {}
+  addEventListeners() {
+    $(SELECTOR.asd).addEventListener('click', () => this.renderasd());
+  }
+
+  renderasd() {
+    this.view.renderasd();
+    this.asd.init();
+  }
 }
