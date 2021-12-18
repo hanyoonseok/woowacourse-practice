@@ -4,6 +4,7 @@ import { SELECTOR } from '../constants/constants.js';
 export default class View {
   constructor() {
     this.$app = $(SELECTOR.app);
+    this.$container = $(SELECTOR.container);
   }
 
   getTable() {

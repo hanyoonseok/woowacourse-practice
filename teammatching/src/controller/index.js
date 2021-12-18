@@ -6,7 +6,6 @@ export default class Controller {
     this.view = view;
     this.model = model;
     this.asd = asd;
-    this.$container = $(SELECTOR.container);
   }
 
   addEventListeners() {
