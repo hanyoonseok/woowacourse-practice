@@ -1,4 +1,4 @@
-import { $, onKeyUpNumericEvent, validation } from './utils.js';
+import { $, onKeyUpOnlyNumberRegex, validation } from './utils.js';
 import { SELECTOR, COIN_ARRAY } from '../constants/constants.js';
 import {
   purchaseTableHeader,
@@ -33,7 +33,7 @@ export default class PurchaseManager {
     $(SELECTOR.chargeButton).addEventListener('click', () => this.chargeMoney());
     $(SELECTOR.returnButton).addEventListener('click', () => this.returnMoney());
     $(SELECTOR.chargeInput).addEventListener('keyup', () =>
-      onKeyUpNumericEvent($(SELECTOR.chargeInput)),
+      onKeyUpOnlyNumberRegex($(SELECTOR.chargeInput)),
     );
   }
 

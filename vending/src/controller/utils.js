@@ -57,4 +57,4 @@ export const validation = {
   },
 };
 
-export const onKeyUpNumericEvent = input => (input.value = input.value.replace(/[^0-9]/g, ''));
+export const onKeyUpOnlyNumberRegex = input => (input.value = input.value.replace(/[^0-9]/g, ''));

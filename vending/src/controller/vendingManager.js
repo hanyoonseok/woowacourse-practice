@@ -1,4 +1,4 @@
-import { $, validation, onKeyUpNumericEvent } from './utils.js';
+import { $, validation, onKeyUpOnlyNumberRegex } from './utils.js';
 import { SELECTOR, COIN_ARRAY } from '../constants/constants.js';
 import { vendingTableRow,vendingTableHeader } from '../constants/template.js';
 

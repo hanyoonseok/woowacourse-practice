@@ -1,4 +1,4 @@
-import { $, validation, onKeyUpNumericEvent } from './utils.js';
+import { $, validation, onKeyUpOnlyNumberRegex } from './utils.js';
 import { SELECTOR } from '../constants/constants.js';
 import { productAddTableRow } from '../constants/template.js';
 
@@ -22,10 +22,10 @@ export default class ProductManager {
   addEventListeners() {
     $(SELECTOR.productAddButon).addEventListener('click', () => this.addProduct());
     $(SELECTOR.productPriceInput).addEventListener('keyup', () =>
-      onKeyUpNumericEvent($(SELECTOR.productPriceInput)),
+      onKeyUpOnlyNumberRegex($(SELECTOR.productPriceInput)),
     );
     $(SELECTOR.productQuantityInput).addEventListener('keyup', () =>
-      onKeyUpNumericEvent($(SELECTOR.productQuantityInput)),
+      onKeyUpOnlyNumberRegex($(SELECTOR.productQuantityInput)),
     );
   }
 
