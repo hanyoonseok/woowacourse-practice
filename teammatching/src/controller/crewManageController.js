@@ -40,12 +40,12 @@ export default class CrewManager {
 
   addCrew(event) {
     event.preventDefault();
-    const crewName = document.querySelector('input[type="text"]').value;
+    const crewName = $(SELECTOR.crewNameInput).value;
     const selectedCourseCrewList = this.model.getSelectedCourse().crewList;
     if (validation.isCrewNameValid(selectedCourseCrewList, crewName)) {
       this.model.addCrewInSelectedCourse(crewName);
       this.initTable();
-      this.view.clearInput(document.querySelector('input[type="text"]'));
+      this.view.clearInput($(SELECTOR.crewNameInput));
     }
   }
 
