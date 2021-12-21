@@ -12,6 +12,7 @@ export const SELECTOR = {
   crewDeleteButton: 'delete-crew-button',
   crewTable: 'crew-table',
   crewRadioName: 'course',
+  crewManageSection: 'crew-manage-section',
 
   courseSelect: 'course-select',
   missionSelect: 'mission-select',

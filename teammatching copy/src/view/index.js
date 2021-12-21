@@ -9,8 +9,24 @@ export default class View {
     this.$container = $(SELECTOR.container);
   }
 
-  clearContainer() {
-    this.$container.innerHTML = '';
+  getTable() {
+    return document.querySelector('table');
+  }
+
+  clearTable(table) {
+    table.innerHTML = '';
+  }
+
+  addTableHeader(table, headerForm){
+    table.insertAdjacentHTML('beforeend', headerForm);
+  }
+
+  addTableRow(table, rowForm){
+    table.insertAdjacentHTML('beforeend', rowForm);
+  }
+
+  clearInnerHTML(element) {
+    element.innerHTML = '';
   }
 
   renderCommonHeader() {
@@ -18,9 +34,14 @@ export default class View {
   }
 
   renderCrewTab() {
-    this.clearContainer();
+    this.clearInnerHTML(this.$container);
     this.$container.insertAdjacentHTML('afterbegin', crewCourseSection);
   }
 
   renderTeamTab() {}
+
+  renderCrewManageSection(course) {
+    this.clearInnerHTML($(SELECTOR.crewManageSection));
+    $(SELECTOR.crewManageSection).insertAdjacentHTML('beforeend', crewManageSection(course));
+  }
 }

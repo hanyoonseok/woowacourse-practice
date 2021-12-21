@@ -28,6 +28,8 @@ export const crewCourseSection = `
     <label for="backend">백엔드</label>
     </div>
 </section>
+<section id=${SELECTOR.crewManageSection}>
+</section>
 `;
 
 export const crewManageSection = course => `
@@ -64,12 +66,12 @@ export const crewTableHeader = `
 </thead>
 <tbody></tbody>
 `;
-export const crewTableRow = `
+export const crewTableRow = (index, crew) => `
 <tr>
-    <td>1</td>
-    <td>준</td>
+    <td>${index}</td>
+    <td>${crew}</td>
     <td>
-        <button>삭제</button>
+        <button id=${SELECTOR.crewDeleteButton}>삭제</button>
     </td>
 </tr>
 `;
