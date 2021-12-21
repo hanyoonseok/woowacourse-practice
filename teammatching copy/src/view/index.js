@@ -1,6 +1,11 @@
 import { SELECTOR } from '../constants/constants.js';
 import { $ } from '../controller/utils.js';
-import { commonHeader, crewCourseSection, crewManageSection } from '../constants/template.js';
+import {
+  commonHeader,
+  crewCourseSection,
+  crewManageSection,
+  teamSelectSection,
+} from '../constants/template.js';
 
 export default class View {
   constructor() {
@@ -42,10 +47,22 @@ export default class View {
     this.$container.insertAdjacentHTML('afterbegin', crewCourseSection);
   }
 
-  renderTeamTab() {}
+  renderTeamTab() {
+    this.clearInnerHTML(this.$container);
+    this.$container.insertAdjacentHTML('afterbegin', teamSelectSection);
+  }
 
   renderCrewManageSection(course) {
     this.clearInnerHTML($(SELECTOR.crewManageSection));
     $(SELECTOR.crewManageSection).insertAdjacentHTML('beforeend', crewManageSection(course));
+  }
+
+  addSelectOptions(select, options) {
+    options.forEach(option => {
+      const optionTag = document.createElement('option');
+      optionTag.value = option.value;
+      optionTag.innerHTML = option.name;
+      select.appendChild(optionTag);
+    });
   }
 }

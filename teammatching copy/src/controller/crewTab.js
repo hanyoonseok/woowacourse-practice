@@ -48,13 +48,16 @@ export default class CrewTab {
   }
 
   deleteCrew(crew) {
-    const allCourse = this.model.getAllCourse();
-    const selectedCourseName = this.model.getSelectedCourse();
-    const selectedCourse = allCourse.find(e => e.name === selectedCourseName);
-    const deletedCrewList = selectedCourse.crewList.filter(e => e !== crew);
-    selectedCourse.crewList = deletedCrewList;
-    this.model.setAllCourse(allCourse);
-    this.initCourseTable();
+    const deleteConfirm = window.confirm('정말 삭제하시겠습니까?');
+    if (deleteConfirm) {
+      const allCourse = this.model.getAllCourse();
+      const selectedCourseName = this.model.getSelectedCourse();
+      const selectedCourse = allCourse.find(e => e.name === selectedCourseName);
+      const deletedCrewList = selectedCourse.crewList.filter(e => e !== crew);
+      selectedCourse.crewList = deletedCrewList;
+      this.model.setAllCourse(allCourse);
+      this.initCourseTable();
+    }
   }
 
   addCrewAddButtonEvent() {
