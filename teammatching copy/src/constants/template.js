@@ -71,7 +71,7 @@ export const crewTableRow = (index, crew) => `
     <td>${index}</td>
     <td>${crew}</td>
     <td>
-        <button id=${SELECTOR.crewDeleteButton}>삭제</button>
+        <button class=${SELECTOR.crewDeleteButton} data-target=${crew}>삭제</button>
     </td>
 </tr>
 `;

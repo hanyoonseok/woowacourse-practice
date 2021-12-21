@@ -9,6 +9,10 @@ export default class View {
     this.$container = $(SELECTOR.container);
   }
 
+  clearInput(input) {
+    input.value = '';
+  }
+
   getTable() {
     return document.querySelector('table');
   }
@@ -17,11 +21,11 @@ export default class View {
     table.innerHTML = '';
   }
 
-  addTableHeader(table, headerForm){
+  addTableHeader(table, headerForm) {
     table.insertAdjacentHTML('beforeend', headerForm);
   }
 
-  addTableRow(table, rowForm){
+  addTableRow(table, rowForm) {
     table.insertAdjacentHTML('beforeend', rowForm);
   }
 

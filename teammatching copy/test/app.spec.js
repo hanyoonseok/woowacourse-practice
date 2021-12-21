@@ -5,7 +5,7 @@ describe("구현 결과가 요구사항과 일치해야 한다.", () => {
     TEAM_TAB: "#team-tab",
     FRONTEND_COURSE_INPUT: "#frontend-course",
     CREW_NAME_INPUT: "#crew-name-input",
-    ADD_CREW_BUTTON: "#add-crew-buttton",
+    ADD_CREW_BUTTON: "#add-crew-button",
     COURSE_SELECT: "#course-select",
     MISSION_SELECT: "#mission-select",
     SHOW_TEAM_MATCHER_BUTTON: "#show-team-matcher-button",

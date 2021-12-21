@@ -1,6 +1,6 @@
 import { SELECTOR } from '../constants/constants.js';
 import { crewTableHeader, crewTableRow } from '../constants/template.js';
-import { $ } from './utils.js';
+import { $, validation } from './utils.js';
 
 export default class CrewTab {
   constructor(view, model) {
@@ -37,6 +37,24 @@ export default class CrewTab {
     allCourse
       .find(e => e.name === selectedCourse)
       .crewList.forEach((crew, i) => this.view.addTableRow(table, crewTableRow(i + 1, crew)));
+    this.addAllDeleteButtonEvent();
+  }
+
+  addAllDeleteButtonEvent() {
+    const allButtons = document.querySelectorAll(`.${SELECTOR.crewDeleteButton}`);
+    allButtons.forEach(button =>
+      button.addEventListener('click', () => this.deleteCrew(button.dataset.target)),
+    );
+  }
+
+  deleteCrew(crew) {
+    const allCourse = this.model.getAllCourse();
+    const selectedCourseName = this.model.getSelectedCourse();
+    const selectedCourse = allCourse.find(e => e.name === selectedCourseName);
+    const deletedCrewList = selectedCourse.crewList.filter(e => e !== crew);
+    selectedCourse.crewList = deletedCrewList;
+    this.model.setAllCourse(allCourse);
+    this.initCourseTable();
   }
 
   addCrewAddButtonEvent() {
@@ -45,10 +63,15 @@ export default class CrewTab {
 
   addCrew(e) {
     e.preventDefault();
+    const crewName = $(SELECTOR.crewNameInput).value;
     const allCourse = this.model.getAllCourse();
     const selectedCourse = this.model.getSelectedCourse();
-    const crewName = $(SELECTOR.crewNameInput).value;
-    allCourse.find(course => course.name === selectedCourse).crewList.push(crewName);
-    this.model.setAllCourse(allCourse);
+    const selectedCrewList = allCourse.find(course => course.name === selectedCourse).crewList;
+    if (validation.isCrewNameValid(crewName, selectedCrewList)) {
+      allCourse.find(course => course.name === selectedCourse).crewList.push(crewName);
+      this.model.setAllCourse(allCourse);
+      this.initCourseTable();
+      this.view.clearInput($(SELECTOR.crewNameInput));
+    }
   }
 }

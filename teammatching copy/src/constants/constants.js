@@ -22,3 +22,9 @@ export const SELECTOR = {
   matchResultUL: 'team-match-result',
   rematchButton: 'rematch-team-button',
 };
+
+export const ALERT_MESSAGE = {
+  isBlank: '공백이거나 공백이 포함되어 있습니다.',
+  isDuplicated: '이미 존재하는 이름입니다.',
+  isNotInLength: '5글자 이하의 이름을 작성해주세요.',
+};
