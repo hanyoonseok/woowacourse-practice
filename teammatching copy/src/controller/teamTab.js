@@ -37,17 +37,15 @@ export default class TeamTab {
     e.preventDefault();
     const courseSelectValue = $(SELECTOR.courseSelect).value;
     const missionSelectValue = $(SELECTOR.missionSelect).value;
-    const courseName = COURSE_OPTIONS.find(option => option.value === courseSelectValue).name;
-    const missionName = MISSION_OPTIONS.find(option => option.value === missionSelectValue).name;
-    const { crewList } = this.model.getAllCourse().find(course => course.name === courseName);
-    const missionCrewList = this.model
-      .getAllMission()
-      .find(mission => mission.course === courseName && mission.mission === missionName).crewList;
+    const courseName = this.model.getCourseName(courseSelectValue);
+    const missionName = this.model.getMissionName(missionSelectValue);
+    const crewList = this.model.getCourseCrewList(courseName);
+    const missionCrewList = this.model.getMissionCrewList(courseName, missionName);
     if (missionCrewList.length === 0) {
       this.handleTeamMatchSection(courseName, missionName, crewList);
-    } else {
-      this.handleTeamMatchResultSection(courseName, missionName, missionCrewList);
+      return;
     }
+    this.handleTeamMatchResultSection(courseName, missionName, missionCrewList);
   }
 
   addTeamMatchEvent() {
@@ -66,12 +64,8 @@ export default class TeamTab {
     const courseName = this.model.getCourseName($(SELECTOR.courseSelect).value);
     const missionName = this.model.getMissionName($(SELECTOR.missionSelect).value);
     const allMission = this.model.getAllMission();
-    const allCrewList = this.model
-      .getAllCourse()
-      .find(course => course.name === courseName).crewList;
-    allMission.find(
-      mission => mission.mission === missionName && mission.course === courseName,
-    ).crewList = [];
+    const allCrewList = this.model.getCourseCrewList(courseName);
+    this.model.clearMissionCrewList(allMission, courseName, missionName);
     this.model.setAllMission(allMission);
     this.handleTeamMatchSection(courseName, missionName, allCrewList);
   }
@@ -81,44 +75,53 @@ export default class TeamTab {
     const memberCount = $(SELECTOR.memberCountInput).value;
     const courseName = this.model.getCourseName($(SELECTOR.courseSelect).value);
     const missionName = this.model.getMissionName($(SELECTOR.missionSelect).value);
-    const allCrewList = this.model
-      .getAllCourse()
-      .find(course => course.name === courseName).crewList;
+    const allCrewList = this.model.getCourseCrewList(courseName);
     if (validation.isCountValid(memberCount, allCrewList.length)) {
-      const allMission = this.model.getAllMission();
-      const selectedMission = allMission.find(
-        mission => mission.course === courseName && mission.mission === missionName,
-      );
-      const matchedCrewList = this.pickCrewByCount(memberCount, allCrewList);
-      selectedMission.crewList = matchedCrewList;
-      this.model.setAllMission(allMission);
-      this.handleTeamMatchResultSection(courseName, missionName, matchedCrewList);
+      this.startMatch(courseName, missionName, memberCount, allCrewList);
     }
   }
 
+  startMatch(courseName, missionName, memberCount, allCrewList) {
+    const allMission = this.model.getAllMission();
+    const selectedMission = allMission.find(
+      mission => mission.course === courseName && mission.mission === missionName,
+    );
+    const matchedCrewList = this.pickCrewByCount(memberCount, allCrewList);
+    selectedMission.crewList = matchedCrewList;
+    this.model.setAllMission(allMission);
+    this.handleTeamMatchResultSection(courseName, missionName, matchedCrewList);
+  }
+
+  pushRestInOrder(randomOrderArray, matchedCrewList, allCrewList) {
+    const restLength = randomOrderArray.length;
+    let index = 0;
+    for (let i = 0; i < restLength; i += 1) {
+      if (index === matchedCrewList.length) {
+        index = 0;
+      }
+      matchedCrewList[index].push(allCrewList[randomOrderArray[0]]);
+      randomOrderArray.shift();
+      index += 1;
+    }
+  }
+
+  makeOneTeam(count, allCrewList, randomOrderArray, matchedCrewList) {
+    const oneTeam = [];
+    for (let i = 0; i < count; i += 1) {
+      oneTeam.push(allCrewList[randomOrderArray[0]]);
+      randomOrderArray.shift();
+    }
+    matchedCrewList.push(oneTeam);
+  }
+
   pickCrewByCount(count, allCrewList) {
-    console.log(allCrewList);
     const randomOrderArray = MissionUtils.Random.shuffle(allCrewList.map((e, i) => i));
     const matchedCrewList = [];
     while (randomOrderArray.length > 0) {
       if (randomOrderArray.length - count < 0) {
-        const restLength = randomOrderArray.length;
-        let index = 0;
-        for (let i = 0; i < restLength; i += 1) {
-          if (index === matchedCrewList.length) {
-            index = 0;
-          }
-          matchedCrewList[index].push(allCrewList[randomOrderArray[0]]);
-          randomOrderArray.shift();
-          index += 1;
-        }
+        this.pushRestInOrder(randomOrderArray, matchedCrewList, allCrewList);
       } else {
-        const oneTeam = [];
-        for (let i = 0; i < count; i += 1) {
-          oneTeam.push(allCrewList[randomOrderArray[0]]);
-          randomOrderArray.shift();
-        }
-        matchedCrewList.push(oneTeam);
+        this.makeOneTeam(count, allCrewList, randomOrderArray, matchedCrewList);
       }
     }
 

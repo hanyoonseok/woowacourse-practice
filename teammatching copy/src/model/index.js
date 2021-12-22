@@ -53,6 +53,10 @@ export default class Model {
     localStorage.setItem('mission', JSON.stringify(allMission));
   }
 
+  getCourseCrewList(course) {
+    return this.getAllCourse().find(one => one.name === course).crewList;
+  }
+
   initMission(course) {
     const allMission = this.getAllMission();
     if (!allMission.find(e => e.course === course)) {
@@ -61,5 +65,14 @@ export default class Model {
       });
     }
     this.setAllMission(allMission);
+  }
+
+  getMissionCrewList(course, mission) {
+    const allMission = this.getAllMission();
+    return allMission.find(row => row.course === course && row.mission === mission).crewList;
+  }
+
+  clearMissionCrewList(allMission, course, mission) {
+    allMission.find(row => row.mission === mission && row.course === course).crewList = [];
   }
 }

@@ -51,6 +51,7 @@ export const validation = {
   isCountValid(input, length) {
     const isValid =
       !this.isBlankExist(input) && this.isPositive(input) && this.isValidNumber(input, length);
+
     return isValid;
   },
 };

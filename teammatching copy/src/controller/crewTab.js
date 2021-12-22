@@ -20,8 +20,8 @@ export default class CrewTab {
   selectCourse() {
     const selectedRadioValue = document.querySelector(
       `input[name=${SELECTOR.crewRadioName}]:checked`,
-    ).value; // frontend
-    const selectedRadioText = document.querySelector(`label[for=${selectedRadioValue}]`).innerHTML; // 프론트엔드
+    ).value;
+    const selectedRadioText = document.querySelector(`label[for=${selectedRadioValue}]`).innerHTML;
     this.model.setSelectedCourse(selectedRadioText);
     this.view.renderCrewManageSection(selectedRadioText);
     this.addCrewAddButtonEvent();
