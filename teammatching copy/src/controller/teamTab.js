@@ -120,9 +120,9 @@ export default class TeamTab {
     while (randomOrderArray.length > 0) {
       if (randomOrderArray.length - count < 0) {
         this.pushRestInOrder(randomOrderArray, matchedCrewList, allCrewList);
-      } else {
-        this.makeOneTeam(count, allCrewList, randomOrderArray, matchedCrewList);
+        continue;
       }
+      this.makeOneTeam(count, allCrewList, randomOrderArray, matchedCrewList);
     }
 
     return matchedCrewList;
