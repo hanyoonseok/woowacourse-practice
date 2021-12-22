@@ -32,4 +32,27 @@ export const validation = {
 
     return isValid;
   },
+  isPositive(input) {
+    const isPos = parseInt(input) >= 1;
+    if (!isPos) {
+      alert(ALERT_MESSAGE.isNotPositive);
+    }
+
+    return isPos;
+  },
+  isValidNumber(input, length) {
+    const isValid = parseInt(input) <= parseInt(length);
+    if (!isValid) {
+      alert(ALERT_MESSAGE.isNotValidCount);
+    }
+
+    return isValid;
+  },
+  isCountValid(input, length) {
+    const isValid =
+      !this.isBlankExist(input) && this.isPositive(input) && this.isValidNumber(input, length);
+    return isValid;
+  },
 };
+
+export const onKeyUpOnlyNumberRegex = input => (input.value = input.value.replace(/[^0-9]/g, ''));

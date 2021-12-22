@@ -6,6 +6,7 @@ import {
   crewManageSection,
   teamSelectSection,
   teamMatchSection,
+  teamMatchResultSection,
 } from '../constants/template.js';
 
 export default class View {
@@ -71,6 +72,22 @@ export default class View {
       const liTag = document.createElement('li');
       liTag.innerHTML = crew;
       $(SELECTOR.teamMatchUL).appendChild(liTag);
+    });
+  }
+
+  renderTeamMatchResultSection(course, mission) {
+    this.clearInnerHTML($(SELECTOR.teamResultSection));
+    $(SELECTOR.teamResultSection).insertAdjacentHTML(
+      'beforeend',
+      teamMatchResultSection(course, mission),
+    );
+  }
+
+  renderTeamMatchResultSectionUL(missionCrewList) {
+    missionCrewList.forEach(crew => {
+      const liTag = document.createElement('li');
+      liTag.innerHTML = crew.join(',');
+      $(SELECTOR.matchResultUL).appendChild(liTag);
     });
   }
 

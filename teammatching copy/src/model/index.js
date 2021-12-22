@@ -1,8 +1,20 @@
+import { MISSION_OPTIONS, COURSE_OPTIONS } from '../constants/constants.js';
+
 export default class Model {
   constructor() {
     this.makeCourse('프론트엔드');
     this.makeCourse('백엔드');
+    this.initMission('프론트엔드');
+    this.initMission('백엔드');
     this.selectedCourse = '';
+  }
+
+  getCourseName(value) {
+    return COURSE_OPTIONS.find(option => option.value === value).name;
+  }
+
+  getMissionName(value) {
+    return MISSION_OPTIONS.find(option => option.value === value).name;
   }
 
   makeCourse(course) {
@@ -33,5 +45,21 @@ export default class Model {
     return JSON.parse(localStorage.getItem('course')) || [];
   }
 
-  getCourseCrew(course) {}
+  getAllMission() {
+    return JSON.parse(localStorage.getItem('mission')) || [];
+  }
+
+  setAllMission(allMission) {
+    localStorage.setItem('mission', JSON.stringify(allMission));
+  }
+
+  initMission(course) {
+    const allMission = this.getAllMission();
+    if (!allMission.find(e => e.course === course)) {
+      MISSION_OPTIONS.forEach(mission => {
+        allMission.push({ course, mission: mission.name, crewList: [] });
+      });
+    }
+    this.setAllMission(allMission);
+  }
 }

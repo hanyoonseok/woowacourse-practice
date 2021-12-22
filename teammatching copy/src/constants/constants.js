@@ -28,7 +28,9 @@ export const SELECTOR = {
 export const ALERT_MESSAGE = {
   isBlank: '공백이거나 공백이 포함되어 있습니다.',
   isDuplicated: '이미 존재하는 이름입니다.',
+  isNotPositive: '1이상의 자연수를 입력해주세요',
   isNotInLength: '5글자 이하의 이름을 작성해주세요.',
+  isNotValidCount: '크루원 수보다 큰 숫자를 작성할 수 없습니다.',
 };
 
 export const COURSE_OPTIONS = [
