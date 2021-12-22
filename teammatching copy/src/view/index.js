@@ -5,6 +5,7 @@ import {
   crewCourseSection,
   crewManageSection,
   teamSelectSection,
+  teamMatchSection,
 } from '../constants/template.js';
 
 export default class View {
@@ -55,6 +56,22 @@ export default class View {
   renderCrewManageSection(course) {
     this.clearInnerHTML($(SELECTOR.crewManageSection));
     $(SELECTOR.crewManageSection).insertAdjacentHTML('beforeend', crewManageSection(course));
+  }
+
+  renderTeamMatchSection(course, mission) {
+    this.clearInnerHTML($(SELECTOR.teamResultSection));
+    $(SELECTOR.teamResultSection).insertAdjacentHTML(
+      'beforeend',
+      teamMatchSection(course, mission),
+    );
+  }
+
+  renderTeamMatchSectionUL(crewList) {
+    crewList.forEach(crew => {
+      const liTag = document.createElement('li');
+      liTag.innerHTML = crew;
+      $(SELECTOR.teamMatchUL).appendChild(liTag);
+    });
   }
 
   addSelectOptions(select, options) {
